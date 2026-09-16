@@ -1,0 +1,260 @@
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+}
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.container{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.register-card{
+
+    width:500px;
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.logo h1{
+
+    font-size:45px;
+
+    letter-spacing:2px;
+
+}
+
+.logo p{
+
+    color:#ddd;
+
+    margin-top:5px;
+
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+h2{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-group{
+
+    margin-bottom:18px;
+
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.register-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2196F3;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.register-btn:hover{
+
+    background:#1565C0;
+
+}
+
+/* ==========================================
+   LINKS
+========================================== */
+
+.bottom-links{
+
+    margin-top:25px;
+
+    text-align:center;
+
+}
+
+.bottom-links p{
+
+    margin-bottom:10px;
+
+}
+
+.bottom-links a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+.bottom-links a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ==========================================
+   FLASH MESSAGE
+========================================== */
+
+.flash{
+
+    padding:12px;
+
+    margin-bottom:20px;
+
+    border-radius:8px;
+
+    text-align:center;
+
+}
+
+.flash.success{
+
+    background:#43A047;
+
+}
+
+.flash.error{
+
+    background:#E53935;
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:600px){
+
+.register-card{
+
+    width:100%;
+
+    padding:25px;
+
+}
+
+.logo h1{
+
+    font-size:35px;
+
+}
+
+}

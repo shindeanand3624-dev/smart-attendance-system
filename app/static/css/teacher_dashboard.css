@@ -1,0 +1,1289 @@
+/* =========================================================
+   SVM SMART ATTENDANCE SYSTEM
+   TEACHER DASHBOARD CSS
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1f2937;
+
+    background-image: url("../college-wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+    padding: 30px 35px;
+    background: transparent;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: #111827;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   SIDEBAR LOGO
+========================================================= */
+
+.sidebar-logo {
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #374151;
+}
+
+
+.logo-circle {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 15px;
+
+    margin-right: 12px;
+}
+
+
+.logo-text h2 {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+
+.logo-text p {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+    flex: 1;
+
+    padding: 25px 15px;
+}
+
+
+.nav-item {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    text-decoration: none;
+
+    color: #d1d5db;
+
+    padding: 14px 15px;
+
+    margin-bottom: 8px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+
+.nav-item:hover {
+    background: #1f2937;
+    color: white;
+}
+
+
+.nav-item.active {
+    background: #2563eb;
+    color: white;
+}
+
+
+.nav-icon {
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.sidebar-bottom {
+    padding: 20px 15px;
+
+    border-top: 1px solid #374151;
+}
+
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    color: #fca5a5;
+
+    transition: 0.3s;
+}
+
+
+.logout-btn:hover {
+    background: #7f1d1d;
+    color: white;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+    padding: 30px 35px;
+    background: transparent;
+}
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.top-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+
+.header-left h1 {
+    font-size: 30px;
+
+    color: #111827;
+
+    margin-bottom: 6px;
+}
+
+
+.header-left p {
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+.header-right {
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification {
+    position: relative;
+
+    font-size: 23px;
+
+    cursor: pointer;
+}
+
+
+.notification-dot {
+    position: absolute;
+
+    top: 0;
+    right: -2px;
+
+    width: 8px;
+    height: 8px;
+
+    background: #ef4444;
+
+    border-radius: 50%;
+
+    border: 2px solid #f4f7fb;
+}
+
+
+/* =========================================================
+   TEACHER PROFILE
+========================================================= */
+
+.teacher-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.teacher-avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.teacher-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.teacher-info strong {
+    font-size: 14px;
+
+    color: #111827;
+}
+
+
+.teacher-info span {
+    font-size: 12px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   FLASH MESSAGES
+========================================================= */
+
+.flash-container {
+    margin-bottom: 20px;
+}
+
+
+.flash-message {
+    padding: 14px 18px;
+
+    border-radius: 8px;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+}
+
+
+.flash-message.success {
+    background: #dcfce7;
+
+    color: #166534;
+
+    border: 1px solid #86efac;
+}
+
+
+.flash-message.error {
+    background: #fee2e2;
+
+    color: #991b1b;
+
+    border: 1px solid #fca5a5;
+}
+
+
+/* =========================================================
+   WELCOME BANNER
+========================================================= */
+
+.welcome-banner {
+    background:
+        linear-gradient(
+            rgba(37, 99, 235, 0.75),
+            rgba(29, 78, 216, 0.75)
+        ),
+         url("../college-wallpaper.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+    border-radius: 18px;
+    padding: 35px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+
+.welcome-small {
+    font-size: 14px;
+
+    opacity: 0.85;
+
+    margin-bottom: 8px;
+}
+
+
+.welcome-content h2 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+
+.welcome-content > p:last-child {
+    font-size: 14px;
+
+    opacity: 0.9;
+
+    max-width: 650px;
+}
+
+
+.welcome-icon {
+    font-size: 70px;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.section-heading h2 {
+    font-size: 21px;
+
+    color: #111827;
+
+    margin-bottom: 5px;
+}
+
+
+.section-heading p {
+    font-size: 13px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   TEACHER INFORMATION
+========================================================= */
+
+.teacher-info-section {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+
+.teacher-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.info-card {
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 18px;
+}
+
+
+.info-card span {
+    display: block;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+.info-card strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 15px;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.statistics-section {
+    margin-bottom: 35px;
+}
+
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+.stat-card {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+
+    transition: 0.3s;
+}
+
+
+.stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 20px rgba(
+        0,
+        0,
+        0,
+        0.08
+    );
+}
+
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.stat-content span {
+    font-size: 12px;
+
+    color: #6b7280;
+}
+
+
+.stat-content strong {
+    font-size: 25px;
+
+    color: #111827;
+}
+
+
+/* =========================================================
+   STUDENTS SECTION
+========================================================= */
+
+.students-section {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+
+.empty-card {
+    text-align: center;
+
+    padding: 50px 20px;
+
+    border: 2px dashed #d1d5db;
+
+    border-radius: 12px;
+}
+
+
+.empty-icon {
+    font-size: 45px;
+
+    margin-bottom: 10px;
+}
+
+
+.empty-card h3 {
+    margin-bottom: 7px;
+
+    color: #374151;
+}
+
+
+.empty-card p {
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.primary-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.primary-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ATTENDANCE SECTION
+========================================================= */
+
+.attendance-section {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 750px;
+}
+
+
+thead {
+    background: #f8fafc;
+}
+
+
+th {
+    padding: 14px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    color: #4b5563;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+td {
+    padding: 14px;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+
+.empty-state .empty-icon {
+    font-size: 40px;
+
+    margin-bottom: 8px;
+}
+
+
+.empty-state h3 {
+    color: #374151;
+
+    margin-bottom: 6px;
+}
+
+
+.empty-state p {
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   QR SECTION
+========================================================= */
+
+.qr-section {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+
+.qr-card {
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.qr-icon {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 15px;
+
+    background: #eff6ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 35px;
+}
+
+
+.qr-content h3 {
+    margin-bottom: 8px;
+
+    color: #111827;
+}
+
+
+.qr-content p {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   LEAVE SECTION
+========================================================= */
+
+.leave-section {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    text-align: center;
+
+    padding: 25px 10px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+
+    .main-content {
+        margin-left: 220px;
+
+        padding: 25px;
+    }
+
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .teacher-info-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+    }
+
+
+    .sidebar-nav {
+        display: flex;
+
+        overflow-x: auto;
+
+        padding: 12px;
+    }
+
+
+    .nav-item {
+        flex-shrink: 0;
+
+        margin-right: 6px;
+
+        margin-bottom: 0;
+    }
+
+
+    .sidebar-bottom {
+        padding: 10px 15px;
+    }
+
+
+    .main-content {
+        margin-left: 0;
+
+        padding: 20px 15px;
+    }
+
+
+    .top-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .header-right {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+
+    .welcome-banner {
+        padding: 25px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .welcome-icon {
+        display: none;
+    }
+
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .teacher-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .section-heading {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+
+    .qr-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .header-left h1 {
+        font-size: 24px;
+    }
+
+
+    .welcome-content h2 {
+        font-size: 23px;
+    }
+
+
+    .teacher-info-section,
+    .students-section,
+    .attendance-section,
+    .qr-section,
+    .leave-section {
+        padding: 18px;
+    }
+
+
+    .stat-card {
+        padding: 18px;
+    }
+
+
+    .teacher-profile .teacher-info {
+        display: none;
+    }
+
+}
+
+@media (max-width: 480px) {
+    
+}
+
+/* =========================================================
+   CLEAR COLLEGE WALLPAPER
+========================================================= */
+
+.teacher-info-section,
+.students-section,
+.attendance-section,
+.qr-section,
+.leave-section {
+    background: rgba(255, 255, 255, 0.62);
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.qr-card {
+    background: rgba(248, 250, 252, 0.70);
+}
+
+ /* =========================================================
+   ATTENDANCE STUDENT ID FILTER
+========================================================= */
+
+.attendance-filter {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+
+.attendance-filter-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+.filter-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+.filter-input-group label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+}
+
+
+.filter-input-group input {
+    width: 230px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #111827;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+
+.filter-input-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 3px rgba(
+        37,
+        99,
+        235,
+        0.12
+    );
+}
+
+
+.filter-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.filter-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+
+.clear-filter-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.clear-filter-btn:hover {
+    background: #fecaca;
+
+    color: #7f1d1d;
+}
+
+
+.filter-result-message {
+    margin-top: 14px;
+
+    padding: 10px 14px;
+
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 8px;
+
+    color: #1e40af;
+
+    font-size: 13px;
+}
+
+
+.filter-result-message strong {
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   MOBILE FILTER
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .attendance-filter-form {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .filter-input-group input {
+        width: 100%;
+    }
+
+
+    .filter-btn,
+    .clear-filter-btn {
+        width: 100%;
+    }
+
+}

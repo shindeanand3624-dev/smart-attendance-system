@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SVM Smart Attendance System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #28538d;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            padding: 30px 15px;
+        }
+
+        /* MAIN BOX */
+
+        .login-container {
+            width: 525px;
+            max-width: 100%;
+
+            padding: 50px;
+
+            background: rgba(91, 123, 174, 0.85);
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* SVM */
+
+        .logo {
+            color: white;
+
+            font-size: 58px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        /* SYSTEM NAME */
+
+        .system-name {
+            color: #eeeeee;
+
+            font-size: 21px;
+
+            margin-bottom: 38px;
+        }
+
+        /* LOGIN */
+
+        h2 {
+            color: white;
+
+            font-size: 30px;
+
+            margin-bottom: 30px;
+        }
+
+        /* TABS */
+
+        .login-tabs {
+            display: flex;
+
+            width: 100%;
+
+            margin-bottom: 24px;
+        }
+
+        .login-tabs button {
+            width: 50%;
+
+            height: 54px;
+
+            border: none;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            background: #dddddd;
+
+            color: #111111;
+        }
+
+        .login-tabs button.active {
+            background: #4caf50;
+
+            color: white;
+        }
+
+        /* INPUT */
+
+        input[type="text"],
+        input[type="password"] {
+
+            width: 100%;
+
+            height: 57px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 10px;
+
+            padding: 0 17px;
+
+            margin-bottom: 22px;
+
+            font-size: 18px;
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-btn {
+
+            width: 100%;
+
+            height: 60px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #4caf50;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #43a047;
+        }
+
+        /* FORGOT PASSWORD */
+
+        .forgot-password {
+
+            display: block;
+
+            text-align: left;
+
+            margin-top: 0;
+
+            margin-bottom: 28px;
+
+            color: #4b005f;
+
+            font-size: 19px;
+
+            text-decoration: underline;
+        }
+
+        .forgot-password:hover {
+            color: #25002f;
+        }
+
+        /* REGISTRATION */
+
+        .registration-links {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 24px;
+        }
+
+        .registration-links a {
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .registration-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* FLASH MESSAGE */
+
+        .flash {
+
+            padding: 12px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            color: #333;
+
+            font-size: 15px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                padding: 35px 25px;
+            }
+
+            .logo {
+                font-size: 48px;
+            }
+
+            .system-name {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 27px;
+            }
+
+            .login-tabs button {
+                font-size: 18px;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                font-size: 17px;
+            }
+
+            .login-btn {
+                font-size: 19px;
+            }
+
+            .forgot-password {
+                font-size: 18px;
+            }
+
+            .registration-links a {
+                font-size: 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">
+            SVM
+        </div>
+
+        <div class="system-name">
+            Smart Attendance System
+        </div>
+
+        <h2>
+            Login
+        </h2>
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- STUDENT / TEACHER -->
+
+        <div class="login-tabs">
+
+            <button
+                type="button"
+                id="studentTab"
+                class="active"
+                onclick="selectStudent()">
+
+                Student
+
+            </button>
+
+
+            <button
+                type="button"
+                id="teacherTab"
+                onclick="selectTeacher()">
+
+                Teacher
+
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+            action="{{ url_for('login') }}"
+            method="POST">
+
+
+            <input
+                type="hidden"
+                name="login_type"
+                id="loginType"
+                value="student">
+
+
+            <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Student ID or Email"
+                required>
+
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required>
+
+
+            <button
+                type="submit"
+                class="login-btn">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <!-- FORGOT PASSWORD -->
+
+        <a
+            href="{{ url_for('forgot_password') }}"
+            class="forgot-password">
+
+            Forgot Password?
+
+        </a>
+
+
+        <!-- REGISTRATION -->
+
+        <div class="registration-links">
+
+            <a href="{{ url_for('register') }}">
+
+                Student Registration
+
+            </a>
+
+
+            <a href="{{ url_for('teacher_register') }}">
+
+                Teacher Registration
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- TAB JAVASCRIPT -->
+
+    <script>
+
+        function selectStudent() {
+
+            document.getElementById("loginType").value = "student";
+
+            document.getElementById("studentTab").classList.add("active");
+
+            document.getElementById("teacherTab").classList.remove("active");
+
+            document.getElementById("username").placeholder =
+                "Student ID or Email";
+        }
+
+
+        function selectTeacher() {
+
+            document.getElementById("loginType").value = "teacher";
+
+            document.getElementById("teacherTab").classList.add("active");
+
+            document.getElementById("studentTab").classList.remove("active");
+
+            document.getElementById("username").placeholder =
+                "Teacher ID or Email";
+        }
+
+    </script>
+
+</body>
+
+</html>

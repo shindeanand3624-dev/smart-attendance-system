@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Face Registration | SVM</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/face_register.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="face-container">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+        SVM
+    </div>
+
+
+    <h1>Face Registration</h1>
+
+    <p class="subtitle">
+        Smart Attendance System
+    </p>
+
+
+    <!-- STUDENT INFORMATION -->
+
+    <div class="student-info">
+
+        <p>
+            Welcome,
+            <strong>{{ student_name }}</strong>
+        </p>
+
+        <p>
+            Student ID:
+            <strong>{{ student_id }}</strong>
+        </p>
+
+    </div>
+
+
+    <!-- INSTRUCTION -->
+
+    <p class="camera-instruction">
+
+        Look directly at the camera and make sure your face
+        is clearly visible.
+
+    </p>
+
+
+    <!-- CAMERA -->
+
+    <div class="camera-box">
+
+        <video
+            id="video"
+            autoplay
+            playsinline>
+        </video>
+
+    </div>
+
+
+    <!-- CAMERA STATUS -->
+
+    <div
+        id="cameraStatus"
+        class="camera-status">
+
+        Starting camera...
+
+    </div>
+
+
+    <!-- HIDDEN CANVAS -->
+
+    <canvas
+        id="canvas"
+        width="400"
+        height="300"
+        style="display:none;">
+    </canvas>
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-container">
+
+        <button
+            type="button"
+            id="startCameraBtn"
+            class="start-camera">
+
+            Start Camera
+
+        </button>
+
+
+        <button
+            type="button"
+            id="captureBtn"
+            class="capture-btn"
+            disabled>
+
+            Capture Face
+
+        </button>
+
+    </div>
+
+
+    <!-- PREVIEW -->
+
+    <div
+        id="previewContainer"
+        class="preview-container"
+        style="display:none;">
+
+        <h3>Captured Face</h3>
+
+        <img
+            id="preview"
+            src=""
+            alt="Face Preview">
+
+    </div>
+
+
+    <!-- SAVE FORM -->
+
+    <form
+        id="faceForm"
+        action="{{ url_for('save_face') }}"
+        method="POST">
+
+        <input
+            type="hidden"
+            name="student_id"
+            value="{{ student_id }}">
+
+
+        <input
+            type="hidden"
+            id="face_image"
+            name="face_image">
+
+
+        <button
+            type="submit"
+            id="saveBtn"
+            class="save-btn"
+            disabled>
+
+            Save Face
+
+        </button>
+
+    </form>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message">
+
+    </div>
+
+
+    <!-- INSTRUCTIONS -->
+
+    <div class="instructions">
+
+        <h3>Face Registration Instructions</h3>
+
+        <ul>
+
+            <li>
+                Allow camera permission when requested.
+            </li>
+
+            <li>
+                Sit in a well-lit area.
+            </li>
+
+            <li>
+                Look directly at the camera.
+            </li>
+
+            <li>
+                Keep your face completely visible.
+            </li>
+
+            <li>
+                Remove sunglasses or anything covering your face.
+            </li>
+
+            <li>
+                Click <strong>Capture Face</strong>.
+            </li>
+
+            <li>
+                Check the captured image.
+            </li>
+
+            <li>
+                Click <strong>Save Face</strong>.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <a
+        href="{{ url_for('student_dashboard') }}"
+        class="back-link">
+
+        ← Back to Dashboard
+
+    </a>
+
+</div>
+
+
+<script>
+
+let stream = null;
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const video =
+    document.getElementById("video");
+
+const canvas =
+    document.getElementById("canvas");
+
+const startCameraBtn =
+    document.getElementById("startCameraBtn");
+
+const captureBtn =
+    document.getElementById("captureBtn");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const faceImage =
+    document.getElementById("face_image");
+
+const preview =
+    document.getElementById("preview");
+
+const previewContainer =
+    document.getElementById("previewContainer");
+
+const cameraStatus =
+    document.getElementById("cameraStatus");
+
+const message =
+    document.getElementById("message");
+
+const faceForm =
+    document.getElementById("faceForm");
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showMessage(text, type) {
+
+    message.innerText = text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   START CAMERA
+   ===================================================== */
+
+async function startCamera() {
+
+    try {
+
+        if (!navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia) {
+
+            throw new Error(
+                "Camera API is not supported."
+            );
+
+        }
+
+
+        stream =
+            await navigator.mediaDevices.getUserMedia({
+
+                video: {
+
+                    width: {
+                        ideal: 400
+                    },
+
+                    height: {
+                        ideal: 300
+                    },
+
+                    facingMode: "user"
+
+                },
+
+                audio: false
+
+            });
+
+
+        video.srcObject =
+            stream;
+
+
+        await video.play();
+
+
+        captureBtn.disabled =
+            false;
+
+        startCameraBtn.disabled =
+            true;
+
+
+        cameraStatus.innerText =
+            "Camera is ready. Look at the camera.";
+
+        cameraStatus.className =
+            "camera-status success-status";
+
+
+        showMessage(
+            "Camera started successfully.",
+            "success"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Camera Error:",
+            error
+        );
+
+
+        cameraStatus.innerText =
+            "Camera access denied or unavailable.";
+
+        cameraStatus.className =
+            "camera-status error-status";
+
+
+        showMessage(
+            "Please allow camera permission and try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CAPTURE FACE
+   ===================================================== */
+
+function captureFace() {
+
+    if (!stream) {
+
+        showMessage(
+            "Please start the camera first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        video.videoWidth === 0 ||
+        video.videoHeight === 0
+    ) {
+
+        showMessage(
+            "Camera is not ready yet. Please wait.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const context =
+        canvas.getContext("2d");
+
+
+    /*
+     * Draw current camera frame
+     */
+
+    context.drawImage(
+
+        video,
+
+        0,
+        0,
+
+        canvas.width,
+        canvas.height
+
+    );
+
+
+    /*
+     * Convert image to Base64
+     */
+
+    const imageData =
+        canvas.toDataURL(
+            "image/jpeg",
+            0.90
+        );
+
+
+    /*
+     * Store image in hidden input
+     */
+
+    faceImage.value =
+        imageData;
+
+
+    /*
+     * Show preview
+     */
+
+    preview.src =
+        imageData;
+
+    previewContainer.style.display =
+        "block";
+
+
+    /*
+     * Enable save button
+     */
+
+    saveBtn.disabled =
+        false;
+
+
+    cameraStatus.innerText =
+        "Face captured successfully.";
+
+    cameraStatus.className =
+        "camera-status success-status";
+
+
+    showMessage(
+        "Face captured successfully. Click Save Face.",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   START CAMERA BUTTON
+   ===================================================== */
+
+startCameraBtn.addEventListener(
+    "click",
+    startCamera
+);
+
+
+/* =====================================================
+   CAPTURE BUTTON
+   ===================================================== */
+
+captureBtn.addEventListener(
+    "click",
+    captureFace
+);
+
+
+/* =====================================================
+   FORM SUBMIT
+   ===================================================== */
+
+faceForm.addEventListener(
+    "submit",
+    function(event) {
+
+        if (!faceImage.value) {
+
+            event.preventDefault();
+
+            showMessage(
+                "Please capture your face before saving.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        saveBtn.disabled =
+            true;
+
+        saveBtn.innerText =
+            "Saving Face...";
+
+    }
+);
+
+
+/* =====================================================
+   AUTO START CAMERA
+   ===================================================== */
+
+startCamera();
+
+
+/* =====================================================
+   STOP CAMERA
+   ===================================================== */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        if (stream) {
+
+            stream
+                .getTracks()
+                .forEach(
+                    function(track) {
+
+                        track.stop();
+
+                    }
+                );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

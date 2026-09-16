@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Teacher Dashboard | SVM Attendance System
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/teacher_dashboard.css') }}"
+    >
+
+    <style>
+
+        /* =====================================================
+           EXTRA STYLES
+        ===================================================== */
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .approve-btn,
+        .reject-btn {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+        }
+
+        .approve-btn {
+            background: #16a34a;
+        }
+
+        .approve-btn:hover {
+            background: #15803d;
+        }
+
+        .reject-btn {
+            background: #dc2626;
+        }
+
+        .reject-btn:hover {
+            background: #b91c1c;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .qr-display {
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            text-align: center;
+            display: none;
+        }
+
+        .qr-display img {
+            width: 260px;
+            height: 260px;
+            object-fit: contain;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+
+        .qr-timer {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .qr-message {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container th,
+        .table-container td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+    </style>
+
+</head>
+
+
+<body class="dashboard-page">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-circle">
+            SVM
+        </div>
+
+        <div class="logo-text">
+
+            <h2>SVM</h2>
+
+            <p>Attendance</p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a
+            href="#dashboard"
+            class="nav-item active"
+        >
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+        </a>
+
+
+        <a
+            href="#students"
+            class="nav-item"
+        >
+            <span class="nav-icon">👥</span>
+            <span>Students</span>
+        </a>
+
+
+       <a
+    href="{{ url_for('teacher_attendance') }}"
+    class="nav-item"
+>
+    <span class="nav-icon">
+        📊
+    </span>
+
+    <span>
+        Attendance
+    </span>
+</a>
+
+
+        <a
+            href="#qr"
+            class="nav-item"
+        >
+            <span class="nav-icon">📱</span>
+            <span>Generate QR</span>
+        </a>
+
+
+        <a
+            href="#leave"
+            class="nav-item"
+        >
+            <span class="nav-icon">📝</span>
+            <span>Leave Requests</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-btn"
+        >
+
+            <span>🚪</span>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <h1>
+                Teacher Dashboard
+            </h1>
+
+            <p>
+                Manage students and attendance
+            </p>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="notification">
+                🔔
+            </div>
+
+
+            <div class="teacher-profile">
+
+                <div class="teacher-avatar">
+
+                    {{ session.get("teacher_name", "T")[0] | upper }}
+
+                </div>
+
+
+                <div class="teacher-info">
+
+                    <strong>
+
+                        {{ session.get("teacher_name", "Teacher") }}
+
+                    </strong>
+
+                    <span>
+                        Teacher
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =================================================
+         WELCOME
+    ================================================== -->
+
+    <section 
+    class="welcome-banner" 
+    id="dashboard"
+    style="
+        background:
+        linear-gradient(
+            rgba(0,0,0,0.45),
+            rgba(0,0,0,0.45)
+        ),
+        url('{{ url_for('static', filename='images/college-wallpaper.jpg') }}');
+        background-size: cover;
+        background-position: center;
+    "
+>
+
+        <div class="welcome-content">
+
+            <p class="welcome-small">
+                Welcome back!
+            </p>
+
+
+            <h2>
+
+                Hello,
+                {{ session.get("teacher_name", "Teacher") }}
+                👋
+
+            </h2>
+
+
+            <p>
+
+                Manage student attendance,
+                generate QR codes and review leave requests.
+
+            </p>
+
+        </div>
+
+
+        <div class="welcome-icon">
+            👨‍🏫
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         TEACHER INFORMATION
+    ================================================== -->
+
+    <section class="teacher-info-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Teacher Information
+                </h2>
+
+                <p>
+                    Your registered account details
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="teacher-info-grid">
+
+
+            <div class="info-card">
+
+                <span>
+                    Teacher ID
+                </span>
+
+                <strong>
+
+                    {{ session.get("teacher_id", "N/A") }}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    Full Name
+                </span>
+
+                <strong>
+
+                    {{ session.get("teacher_name", "N/A") }}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+
+                    {{ session.get("teacher_email", "N/A") }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================== -->
+
+    <section class="statistics-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Attendance Overview
+                </h2>
+
+                <p>
+                    Today's attendance summary
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Total Students
+                    </span>
+
+                    <strong>
+                        {{ total_students | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Present Today
+                    </span>
+
+                    <strong>
+                        {{ present_today | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ❌
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Absent Today
+                    </span>
+
+                    <strong>
+                        {{ absent_today | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📈
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Attendance
+                    </span>
+
+                    <strong>
+                        {{ attendance_percentage | default(0) }}%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STUDENTS
+    ================================================== -->
+
+    <section
+        class="students-section"
+        id="students"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Students
+                </h2>
+
+                <p>
+                    Manage registered students
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if students %}
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student ID
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Roll Number
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Year
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for student in students %}
+
+                            <tr>
+
+                                <td>
+                                    {{ student.student_id | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ student.name | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ student.roll_number | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ student.email | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ student.department | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ student.year | default("N/A") }}
+                                </td>
+
+                                <td>
+
+                                    <span class="status-badge status-approved">
+
+                                        {{ student.status | default("ACTIVE") }}
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-card">
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
+                <h3>
+                    No Students Registered
+                </h3>
+
+                <p>
+                    Registered students will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- =================================================
+         ATTENDANCE
+    ================================================== -->
+
+    <section
+        class="attendance-section"
+        id="attendance"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Attendance Records
+                </h2>
+
+                <p>
+                    View and manage student attendance
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- =====================================================
+     STUDENT ATTENDANCE FILTER
+===================================================== -->
+
+<div class="attendance-filter">
+
+    <form
+        method="GET"
+        action="{{ url_for('teacher_dashboard') }}"
+        class="attendance-filter-form"
+    >
+
+        <div class="filter-input-group">
+
+            <label for="student_id">
+                Student ID
+            </label>
+
+            <input
+                type="text"
+                id="student_id"
+                name="student_id"
+                value="{{ selected_student_id | default('') }}"
+                placeholder="Enter Student ID"
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="filter-btn"
+        >
+            🔍 Search Attendance
+        </button>
+
+        {% if selected_student_id %}
+
+            <a
+                href="{{ url_for('teacher_dashboard') }}"
+                class="clear-filter-btn"
+            >
+                ✖ Clear
+            </a>
+
+        {% endif %}
+
+    </form>
+
+    {% if selected_student_id %}
+
+        <div class="filter-result-message">
+
+            Showing attendance records for Student ID:
+
+            <strong>
+                {{ selected_student_id }}
+            </strong>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student ID
+                        </th>
+
+                        <th>
+                            Student Name
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Method
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if attendance_records %}
+
+                        {% for record in attendance_records %}
+
+                            <tr>
+
+                                <td>
+                                    {{ record.student_id | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ record.name | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ record.date | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ record.time | default("N/A") }}
+                                </td>
+
+                                <td>
+                                    {{ record.method | default("N/A") }}
+                                </td>
+
+                                <td>
+
+                                    <span class="status-badge status-approved">
+
+                                        {{ record.status | default("PRESENT") }}
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <div class="empty-state">
+
+                                    <div class="empty-icon">
+                                        📅
+                                    </div>
+
+                                    <h3>
+                                        No Attendance Records
+                                    </h3>
+
+                                    <p>
+                                        Attendance records will appear here.
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         DYNAMIC QR
+    ================================================== -->
+
+    <section
+        class="qr-section"
+        id="qr"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Dynamic QR Attendance
+                </h2>
+
+                <p>
+                    Generate a secure QR code for students
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="qr-card">
+
+            <div class="qr-icon">
+                📱
+            </div>
+
+
+            <div class="qr-content">
+
+                <h3>
+                    Generate Attendance QR
+                </h3>
+
+
+                <p>
+                    Generate a temporary QR code that
+                    students can scan to mark attendance.
+                </p>
+
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    id="generateQRBtn"
+                    onclick="generateQR()"
+                >
+
+                    📱 Generate QR Code
+
+                </button>
+
+
+                <div
+                    class="qr-display"
+                    id="qrDisplay"
+                >
+
+                    <h3>
+                        Attendance QR Code
+                    </h3>
+
+
+                    <img
+                        id="qrImage"
+                        src=""
+                        alt="Attendance QR Code"
+                    >
+
+
+                    <div
+                        class="qr-timer"
+                        id="qrTimer"
+                    >
+                        QR Expired
+                    </div>
+
+
+                    <div
+                        class="qr-message"
+                        id="qrMessage"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         LEAVE REQUESTS
+    ================================================== -->
+
+    <section
+        class="leave-section"
+        id="leave"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Leave Requests
+                </h2>
+
+                <p>
+                    Review student leave requests
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            From Date
+                        </th>
+
+                        <th>
+                            To Date
+                        </th>
+
+                        <th>
+                            Reason
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if leave_requests %}
+
+                        {% for leave in leave_requests %}
+
+                            {% set leave_status = leave.status | default("PENDING") | upper %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong>
+
+                                        {{ leave.student_name | default(leave.name, true) }}
+
+                                    </strong>
+
+
+                                    {% if leave.student_id %}
+
+                                        <br>
+
+                                        <small>
+                                            ID: {{ leave.student_id }}
+                                        </small>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    {{ leave.from_date | default("N/A") }}
+
+                                </td>
+
+
+                                <td>
+
+                                    {{ leave.to_date | default("N/A") }}
+
+                                </td>
+
+
+                                <td>
+
+                                    {{ leave.reason | default("N/A") }}
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if leave_status == "APPROVED" %}
+
+                                        <span class="status-badge status-approved">
+                                            APPROVED
+                                        </span>
+
+                                    {% elif leave_status == "REJECTED" %}
+
+                                        <span class="status-badge status-rejected">
+                                            REJECTED
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status-badge status-pending">
+                                            PENDING
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if leave_status == "PENDING" %}
+
+                                        <div class="action-buttons">
+
+
+                                            <form
+                                                action="{{ url_for('approve_leave', leave_id=leave.id) }}"
+                                                method="POST"
+                                                style="display:inline;"
+                                            >
+
+                                                <button
+                                                    type="submit"
+                                                    class="approve-btn"
+                                                    onclick="return confirm('Approve this leave request?');"
+                                                >
+
+                                                    ✅ Approve
+
+                                                </button>
+
+                                            </form>
+
+
+                                            <form
+                                                action="{{ url_for('reject_leave', leave_id=leave.id) }}"
+                                                method="POST"
+                                                style="display:inline;"
+                                            >
+
+                                                <button
+                                                    type="submit"
+                                                    class="reject-btn"
+                                                    onclick="return confirm('Reject this leave request?');"
+                                                >
+
+                                                    ❌ Reject
+
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    {% elif leave_status == "APPROVED" %}
+
+                                        <span>
+                                            ✔ Leave Approved
+                                        </span>
+
+                                    {% elif leave_status == "REJECTED" %}
+
+                                        <span>
+                                            ✖ Leave Rejected
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <div class="empty-state">
+
+                                    <div class="empty-icon">
+                                        📝
+                                    </div>
+
+                                    <h3>
+                                        No Leave Requests
+                                    </h3>
+
+                                    <p>
+                                        Student leave requests will appear here.
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 SVM Attendance System. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+let qrTimerInterval = null;
+
+
+/* =====================================================
+   CORRECT QR ENDPOINT
+
+   app.py contains:
+
+   @app.route("/teacher/generate-qr", methods=["POST"])
+
+   Therefore we use this exact URL.
+===================================================== */
+
+const QR_ENDPOINT = "/teacher/generate-qr";
+
+
+/* =====================================================
+   GENERATE DYNAMIC QR
+===================================================== */
+
+async function generateQR() {
+
+    const button =
+        document.getElementById("generateQRBtn");
+
+    const qrDisplay =
+        document.getElementById("qrDisplay");
+
+    const qrImage =
+        document.getElementById("qrImage");
+
+    const qrTimer =
+        document.getElementById("qrTimer");
+
+    const qrMessage =
+        document.getElementById("qrMessage");
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "Generating QR...";
+
+
+    qrMessage.innerText = "";
+
+
+    try {
+
+        const response =
+            await fetch(
+                QR_ENDPOINT,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    credentials: "same-origin"
+                }
+            );
+
+
+        let data = {};
+
+
+        try {
+
+            data =
+                await response.json();
+
+        } catch (jsonError) {
+
+            throw new Error(
+                "Server returned an invalid response."
+            );
+
+        }
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to generate QR code."
+            );
+
+        }
+
+
+        /* SHOW QR */
+
+        qrDisplay.style.display =
+            "block";
+
+
+        if (!data.qr_image) {
+
+            throw new Error(
+                "QR image was not returned by the server."
+            );
+
+        }
+
+
+        qrImage.src =
+            data.qr_image;
+
+
+        /* START TIMER */
+
+        let expiresIn =
+            Number(
+                data.expires_in || 120
+            );
+
+
+        clearInterval(
+            qrTimerInterval
+        );
+
+
+        function updateTimer() {
+
+            const minutes =
+                Math.floor(
+                    expiresIn / 60
+                );
+
+
+            const seconds =
+                expiresIn % 60;
+
+
+            qrTimer.innerText =
+                "QR expires in " +
+                minutes +
+                ":" +
+                String(seconds)
+                    .padStart(2, "0");
+
+
+            if (expiresIn <= 0) {
+
+                clearInterval(
+                    qrTimerInterval
+                );
+
+
+                qrTimer.innerText =
+                    "QR EXPIRED";
+
+
+                qrMessage.innerText =
+                    "Generate a new QR code for attendance.";
+
+
+                button.disabled =
+                    false;
+
+
+                button.innerText =
+                    "📱 Generate QR Code";
+
+
+                return;
+
+            }
+
+
+            expiresIn--;
+
+        }
+
+
+        updateTimer();
+
+
+        qrTimerInterval =
+            setInterval(
+                updateTimer,
+                1000
+            );
+
+
+        qrMessage.innerText =
+            data.message ||
+            "Students can scan this QR code.";
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "QR Error:",
+            error
+        );
+
+
+        qrDisplay.style.display =
+            "block";
+
+
+        qrTimer.innerText =
+            "QR NOT GENERATED";
+
+
+        qrMessage.innerText =
+            error.message ||
+            "Unable to generate QR code.";
+
+    }
+
+
+    button.disabled =
+        false;
+
+
+    button.innerText =
+        "📱 Generate QR Code";
+
+}
+
+
+/* =====================================================
+   SIDEBAR NAVIGATION
+===================================================== */
+
+document
+    .querySelectorAll(".nav-item")
+    .forEach(
+        function(item) {
+
+            item.addEventListener(
+                "click",
+                function() {
+
+                    document
+                        .querySelectorAll(".nav-item")
+                        .forEach(
+                            function(nav) {
+
+                                nav.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   AUTO HIDE FLASH MESSAGE
+===================================================== */
+
+setTimeout(
+    function() {
+
+        document
+            .querySelectorAll(".flash-message")
+            .forEach(
+                function(message) {
+
+                    message.style.opacity =
+                        "0";
+
+                    message.style.transition =
+                        "opacity 0.5s";
+
+
+                    setTimeout(
+                        function() {
+
+                            message.remove();
+
+                        },
+                        500
+                    );
+
+                }
+            );
+
+    },
+    5000
+);
+
+</script>
+
+
+</body>
+
+</html>

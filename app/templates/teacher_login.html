@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Login | SVM Attendance System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/teacher_login.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="login-card">
+
+        <div class="logo">
+
+            <h1>SVM</h1>
+
+            <p>Smart Attendance System</p>
+
+        </div>
+
+        <h2>Teacher Login</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <form
+            action="/login"
+            method="POST"
+        >
+
+            <input
+                type="hidden"
+                name="login_type"
+                value="teacher"
+            >
+
+            <div class="form-group">
+
+                <label>Teacher ID / Email</label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter Teacher ID or Email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+
+                Login
+
+            </button>
+
+        </form>
+
+        <div class="bottom-links">
+
+            <a href="/teacher/register">
+                Create Teacher Account
+            </a>
+
+            <br><br>
+
+            <a href="/">
+                Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

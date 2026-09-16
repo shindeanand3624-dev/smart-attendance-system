@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Teacher Registration | SVM Attendance</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/teacher_register.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="register-card">
+
+        <div class="logo">
+
+            <h1>SVM</h1>
+
+            <p>Smart Attendance System</p>
+
+        </div>
+
+        <h2>Teacher Registration</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <form
+            action="{{ url_for('teacher_register') }}"
+            method="POST"
+        >
+
+            <div class="form-group">
+
+                <label>Teacher ID</label>
+
+                <input
+                    type="text"
+                    name="teacher_id"
+                    placeholder="Enter Teacher ID"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter Full Name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="teacher@example.com"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Confirm Password</label>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="register-btn"
+            >
+                Register Teacher
+            </button>
+
+        </form>
+
+        <div class="bottom-links">
+
+            <p>
+                Already have an account?
+            </p>
+
+            <br>
+
+            <a href="/">
+                Back to Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

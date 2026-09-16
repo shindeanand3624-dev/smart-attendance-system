@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Student Dashboard | SVM Attendance
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/student_dashboard.css') }}"
+    >
+
+    <style>
+
+        /* =====================================================
+           LEAVE REQUEST STATUS
+        ===================================================== */
+
+        .leave-status-section {
+            margin-top: 25px;
+        }
+
+        .leave-status-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eeeeee;
+        }
+
+        .leave-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .leave-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .leave-table th,
+        .leave-table td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .leave-table th {
+            font-weight: 600;
+            background: #f7f8fa;
+        }
+
+        .leave-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .leave-status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .leave-status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .leave-status-badge.approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .leave-status-badge.rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .leave-status-badge.cancelled {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .leave-empty {
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .leave-empty-icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .leave-empty h3 {
+            margin-bottom: 8px;
+        }
+
+        .leave-empty p {
+            color: #777;
+        }
+
+        .leave-reason {
+            max-width: 260px;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        /* =====================================================
+           STATUS MESSAGE
+        ===================================================== */
+
+        .status-message {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-message.approved-message {
+            color: #198754;
+        }
+
+        .status-message.rejected-message {
+            color: #dc3545;
+        }
+
+        .status-message.pending-message {
+            color: #856404;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .leave-status-card {
+                padding: 12px;
+            }
+
+            .leave-table th,
+            .leave-table td {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="dashboard-page">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-circle">
+            SVM
+        </div>
+
+        <div>
+            <h2>SVM</h2>
+            <p>Attendance</p>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a
+            href="#dashboard"
+            class="nav-item active"
+        >
+            🏠
+            <span>Dashboard</span>
+        </a>
+
+
+        <a
+            href="#attendance"
+            class="nav-item"
+        >
+            📊
+            <span>My Attendance</span>
+        </a>
+
+
+        <a
+            href="#mark-attendance"
+            class="nav-item"
+        >
+            ✅
+            <span>Mark Attendance</span>
+        </a>
+
+
+        <a
+            href="#leave"
+            class="nav-item"
+        >
+            📝
+            <span>Leave Request</span>
+        </a>
+
+
+        <a
+            href="#profile"
+            class="nav-item"
+        >
+            👤
+            <span>My Profile</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-btn"
+        >
+            🚪
+            Logout
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main
+    class="main-content"
+    id="dashboard"
+>
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+        <div>
+
+            <h1>
+                Student Dashboard
+            </h1>
+
+            <p>
+                Welcome back to SVM Attendance System
+            </p>
+
+        </div>
+
+
+        <div class="student-mini-profile">
+
+            <div class="mini-avatar">
+
+                {{ session.get("student_name", "S")[0] | upper }}
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    {{ session.get("student_name", "Student") }}
+                </strong>
+
+                <span>
+                    Student
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         FLASH MESSAGES
+    ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =================================================
+         WELCOME BANNER
+    ================================================== -->
+
+    <section class="welcome-banner">
+
+        <div>
+
+            <p>
+                Good to see you!
+            </p>
+
+
+            <h2>
+
+                Hello,
+                {{ session.get("student_name", "Student") }}
+                👋
+
+            </h2>
+
+
+            <span>
+
+                Manage your attendance and
+                leave requests from your dashboard.
+
+            </span>
+
+        </div>
+
+
+        <div class="welcome-icon">
+            🎓
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STUDENT INFORMATION
+    ================================================== -->
+
+    <section
+        class="card-section"
+        id="profile"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Student Information
+                </h2>
+
+                <p>
+                    Your registered details
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="student-info-grid">
+
+
+            <div class="info-item">
+
+                <span>
+                    Student ID
+                </span>
+
+                <strong>
+                    {{ session.get("student_id", "N/A") }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Full Name
+                </span>
+
+                <strong>
+                    {{ session.get("student_name", "N/A") }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Roll Number
+                </span>
+
+                <strong>
+                    {{ session.get("student_roll_number", "N/A") }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+                    {{ session.get("student_email", "N/A") }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Department
+                </span>
+
+                <strong>
+                    {{ session.get("student_department", "N/A") }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Academic Year
+                </span>
+
+                <strong>
+                    {{ session.get("student_year", "N/A") }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         ATTENDANCE OVERVIEW
+    ================================================== -->
+
+    <section
+        class="card-section"
+        id="attendance"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Attendance Overview
+                </h2>
+
+                <p>
+                    Your current attendance statistics
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Classes
+                    </span>
+
+                    <strong>
+                        {{ total_classes | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div>
+
+                    <span>
+                        Present
+                    </span>
+
+                    <strong>
+                        {{ present_count | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ❌
+                </div>
+
+                <div>
+
+                    <span>
+                        Absent
+                    </span>
+
+                    <strong>
+                        {{ absent_count | default(0) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📈
+                </div>
+
+                <div>
+
+                    <span>
+                        Attendance
+                    </span>
+
+                    <strong>
+
+                        {{ "%.2f"|format(
+                            attendance_percentage|default(0)|float
+                        ) }}%
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MARK ATTENDANCE
+    ================================================== -->
+
+    <section
+        class="card-section"
+        id="mark-attendance"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Mark Attendance
+                </h2>
+
+                <p>
+                    Choose your attendance verification method
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="attendance-method-grid">
+
+
+            <!-- FACE -->
+
+            <div class="method-card">
+
+                <div class="method-icon">
+                    📷
+                </div>
+
+
+                <h3>
+                    Face Recognition
+                </h3>
+
+
+                <p>
+
+                    Verify your identity using
+                    face recognition.
+
+                </p>
+
+
+                <a
+                    href="{{ url_for('face_attendance') }}"
+                    class="method-btn"
+                >
+                    📷 Start Face Recognition
+                </a>
+
+
+                <a
+                    href="{{ url_for('face_register') }}"
+                    class="method-btn register-face-btn"
+                >
+                    👤 Register Face
+                </a>
+
+            </div>
+
+
+
+            <!-- QR -->
+
+            <div class="method-card">
+
+                <div class="method-icon">
+                    📱
+                </div>
+
+
+                <h3>
+                    Dynamic QR
+                </h3>
+
+
+                <p>
+
+                    Scan the QR code generated
+                    by your teacher.
+
+                </p>
+
+
+                <button
+                    type="button"
+                    class="method-btn"
+                    onclick="scanQR()"
+                >
+                    📱 Scan QR Code
+                </button>
+
+            </div>
+
+
+
+            <!-- FINGERPRINT -->
+
+            <div class="method-card">
+
+                <div class="method-icon">
+                    🖐️
+                </div>
+
+
+                <h3>
+                    Fingerprint
+                </h3>
+
+
+                <p>
+
+                    Verify attendance using
+                    fingerprint authentication.
+
+                </p>
+
+
+                <button
+                    type="button"
+                    class="method-btn"
+                    onclick="startFingerprint()"
+                >
+                    🖐️ Verify Fingerprint
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECENT ATTENDANCE
+    ================================================== -->
+
+    <section class="card-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Recent Attendance
+                </h2>
+
+                <p>
+                    Your latest attendance records
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Method
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if recent_attendance %}
+
+                        {% for record in recent_attendance %}
+
+                            <tr>
+
+                                <td>
+                                    {{ record.attendance_date }}
+                                </td>
+
+                                <td>
+                                    {{ record.attendance_time }}
+                                </td>
+
+                                <td>
+                                    {{ record.method }}
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        class="status-badge {{ record.status | lower }}"
+                                    >
+                                        {{ record.status }}
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="4">
+
+                                <div class="empty-state">
+
+                                    <div>
+                                        📅
+                                    </div>
+
+                                    <h3>
+                                        No Attendance Records
+                                    </h3>
+
+                                    <p>
+                                        Your attendance records
+                                        will appear here.
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         LEAVE REQUEST
+    ================================================== -->
+
+    <section
+        class="card-section"
+        id="leave"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Leave Request
+                </h2>
+
+                <p>
+                    Submit a leave request to your teacher
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="leave-card">
+
+
+            <div class="leave-icon">
+                📝
+            </div>
+
+
+            <div class="leave-content">
+
+                <h3>
+                    Need Leave?
+                </h3>
+
+                <p>
+
+                    Submit your leave request with
+                    dates and reason.
+
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="leave-btn"
+                onclick="openLeaveForm()"
+            >
+                Submit Leave Request
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MY LEAVE REQUESTS / STATUS
+    ================================================== -->
+
+    <section
+        class="card-section leave-status-section"
+        id="my-leave-requests"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    My Leave Requests
+                </h2>
+
+                <p>
+                    Check your leave request status
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="leave-status-card">
+
+            {% if leave_requests %}
+
+                <div class="leave-table-wrapper">
+
+                    <table class="leave-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    From Date
+                                </th>
+
+                                <th>
+                                    To Date
+                                </th>
+
+                                <th>
+                                    Reason
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Submitted
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for request in leave_requests %}
+
+                                {% set request_status =
+                                    request.status
+                                    |default("Pending")
+                                    |string
+                                    |lower
+                                %}
+
+
+                                <tr>
+
+                                    <td>
+
+                                        {{ request.from_date
+                                           |default("N/A") }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {{ request.to_date
+                                           |default("N/A") }}
+
+                                    </td>
+
+
+                                    <td class="leave-reason">
+
+                                        {{ request.reason
+                                           |default("N/A") }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if request_status == "approved" %}
+
+                                            <span
+                                                class="leave-status-badge approved"
+                                            >
+                                                Approved
+                                            </span>
+
+                                            <div
+                                                class="status-message approved-message"
+                                            >
+                                                ✓ Leave approved by teacher
+                                            </div>
+
+
+                                        {% elif request_status == "rejected" %}
+
+                                            <span
+                                                class="leave-status-badge rejected"
+                                            >
+                                                Rejected
+                                            </span>
+
+                                            <div
+                                                class="status-message rejected-message"
+                                            >
+                                                ✕ Leave rejected by teacher
+                                            </div>
+
+
+                                        {% elif request_status == "cancelled" %}
+
+                                            <span
+                                                class="leave-status-badge cancelled"
+                                            >
+                                                Cancelled
+                                            </span>
+
+
+                                        {% else %}
+
+                                            <span
+                                                class="leave-status-badge pending"
+                                            >
+                                                Pending
+                                            </span>
+
+                                            <div
+                                                class="status-message pending-message"
+                                            >
+                                                ⏳ Waiting for teacher approval
+                                            </div>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if request.created_at %}
+
+                                            {{ request.created_at }}
+
+                                        {% elif request.submitted_at %}
+
+                                            {{ request.submitted_at }}
+
+                                        {% else %}
+
+                                            N/A
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            {% else %}
+
+                <div class="leave-empty">
+
+                    <div class="leave-empty-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        No Leave Requests
+                    </h3>
+
+                    <p>
+                        Your submitted leave requests
+                        will appear here.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 SVM Attendance System
+        </p>
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     LEAVE MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="leaveModal"
+>
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Submit Leave Request
+            </h2>
+
+
+            <button
+                type="button"
+                class="close-modal"
+                onclick="closeLeaveForm()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('submit_leave') }}"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    From Date
+                </label>
+
+
+                <input
+                    type="date"
+                    name="from_date"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>
+                    To Date
+                </label>
+
+
+                <input
+                    type="date"
+                    name="to_date"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>
+                    Reason
+                </label>
+
+
+                <textarea
+                    name="reason"
+                    rows="4"
+                    placeholder="Enter reason for leave..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <div class="modal-actions">
+
+
+                <button
+                    type="button"
+                    class="cancel-modal-btn"
+                    onclick="closeLeaveForm()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="submit-leave-btn"
+                >
+                    Submit Request
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   QR CODE
+===================================================== */
+/* =====================================================
+   DYNAMIC QR SCANNER
+===================================================== */
+
+let qrScanner = null;
+let qrScannerRunning = false;
+
+
+/* =====================================================
+   OPEN QR SCANNER
+===================================================== */
+
+function scanQR() {
+
+    if (qrScannerRunning) {
+        return;
+    }
+
+    /* Create scanner popup */
+
+    let scannerModal = document.getElementById("qrScannerModal");
+
+    if (!scannerModal) {
+
+        scannerModal = document.createElement("div");
+
+        scannerModal.id = "qrScannerModal";
+
+        scannerModal.innerHTML = `
+            <div class="qr-modal-overlay">
+
+                <div class="qr-modal">
+
+                    <div class="qr-modal-header">
+
+                        <h2>
+                            📱 Scan Attendance QR
+                        </h2>
+
+                        <button
+                            type="button"
+                            class="qr-close-btn"
+                            onclick="closeQRScanner()"
+                        >
+                            ✕
+                        </button>
+
+                    </div>
+
+                    <p class="qr-scanner-info">
+                        Point your camera at the QR code generated by your teacher.
+                    </p>
+
+                    <div
+                        id="qr-reader"
+                        style="width:100%;"
+                    ></div>
+
+                    <div
+                        id="qr-scan-status"
+                        class="qr-scan-status"
+                    >
+                        Starting camera...
+                    </div>
+
+                    <button
+                        type="button"
+                        class="qr-cancel-btn"
+                        onclick="closeQRScanner()"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(scannerModal);
+
+        /* Scanner CSS */
+
+        const style = document.createElement("style");
+
+        style.id = "qrScannerStyles";
+
+        style.innerHTML = `
+
+            .qr-modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.75);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                padding: 20px;
+            }
+
+            .qr-modal {
+                width: min(500px, 95vw);
+                max-height: 95vh;
+                overflow-y: auto;
+                background: white;
+                border-radius: 18px;
+                padding: 22px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            }
+
+            .qr-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .qr-modal-header h2 {
+                margin: 0;
+                color: #111827;
+            }
+
+            .qr-close-btn {
+                border: none;
+                background: #ef4444;
+                color: white;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .qr-scanner-info {
+                color: #4b5563;
+                margin-bottom: 15px;
+                line-height: 1.5;
+            }
+
+            #qr-reader {
+                border: none !important;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            #qr-reader video {
+                border-radius: 12px;
+            }
+
+            #qr-reader__scan_region {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .qr-scan-status {
+                margin-top: 15px;
+                padding: 12px;
+                border-radius: 8px;
+                background: #eff6ff;
+                color: #1d4ed8;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            .qr-cancel-btn {
+                width: 100%;
+                margin-top: 15px;
+                padding: 12px;
+                border: none;
+                border-radius: 8px;
+                background: #374151;
+                color: white;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .qr-cancel-btn:hover {
+                background: #1f2937;
+            }
+
+        `;
+
+        document.head.appendChild(style);
+    }
+
+    scannerModal.style.display = "flex";
+
+    startQRScanner();
+}
+
+
+/* =====================================================
+   START CAMERA
+===================================================== */
+
+function startQRScanner() {
+
+    const status =
+        document.getElementById("qr-scan-status");
+
+    if (!status) {
+        return;
+    }
+
+    status.innerText =
+        "Starting camera...";
+
+    try {
+
+        qrScanner =
+            new Html5Qrcode("qr-reader");
+
+        qrScannerRunning = true;
+
+        qrScanner.start(
+
+            {
+                facingMode: "environment"
+            },
+
+            {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
+                }
+            },
+
+            function(decodedText) {
+
+                console.log(
+                    "QR detected:",
+                    decodedText
+                );
+
+                status.innerText =
+                    "QR detected. Verifying attendance...";
+
+                handleScannedQR(decodedText);
+
+            },
+
+            function(errorMessage) {
+
+                /* Ignore normal scan failures */
+
+            }
+
+        ).then(function() {
+
+            status.innerText =
+                "Camera active. Scan the teacher's QR code.";
+
+        }).catch(function(error) {
+
+            console.error(
+                "QR Camera Error:",
+                error
+            );
+
+            qrScannerRunning = false;
+
+            status.innerText =
+                "Unable to access camera. Please allow camera permission.";
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "QR Scanner Error:",
+            error
+        );
+
+        qrScannerRunning = false;
+
+        status.innerText =
+            "QR scanner could not be started.";
+
+    }
+}
+
+
+/* =====================================================
+   HANDLE SCANNED QR
+===================================================== */
+
+function handleScannedQR(decodedText) {
+
+    if (!decodedText) {
+        return;
+    }
+
+    stopQRScanner();
+
+    const scannedText = decodedText.trim();
+
+    console.log("QR detected:", scannedText);
+
+    const status = document.getElementById("qr-scan-status");
+
+    if (status) {
+        status.innerText = "QR detected. Verifying attendance...";
+    }
+
+    try {
+
+        /*
+         * QR can contain:
+         *
+         * http://127.0.0.1:5000/student/qr-attendance/TOKEN
+         *
+         * http://10.x.x.x:5000/student/qr-attendance/TOKEN
+         *
+         * https://xxxxx.trycloudflare.com/student/qr-attendance/TOKEN
+         *
+         * or simply:
+         *
+         * /student/qr-attendance/TOKEN
+         *
+         * We only validate the Flask route.
+         */
+
+        let qrPath = "";
+
+        /*
+         * If QR contains a complete URL
+         */
+        if (
+            scannedText.startsWith("http://") ||
+            scannedText.startsWith("https://")
+        ) {
+
+            const url = new URL(scannedText);
+
+            qrPath = url.pathname + url.search;
+
+        }
+
+        /*
+         * If QR contains a relative Flask URL
+         */
+        else if (
+            scannedText.startsWith("/")
+        ) {
+
+            qrPath = scannedText;
+
+        }
+
+        /*
+         * If QR contains only the attendance path
+         */
+        else if (
+            scannedText.startsWith(
+                "student/qr-attendance/"
+            )
+        ) {
+
+            qrPath = "/" + scannedText;
+
+        }
+
+        else {
+
+            console.error(
+                "Unsupported QR data:",
+                scannedText
+            );
+
+            alert(
+                "Invalid QR code. Please scan the QR generated by your teacher."
+            );
+
+            closeQRScanner();
+
+            return;
+        }
+
+
+        /*
+         * Security / route validation
+         */
+
+        if (
+            !qrPath.startsWith(
+                "/student/qr-attendance/"
+            )
+        ) {
+
+            console.error(
+                "Invalid attendance route:",
+                qrPath
+            );
+
+            alert(
+                "This QR code is not an attendance QR."
+            );
+
+            closeQRScanner();
+
+            return;
+        }
+
+
+        /*
+         * Extract token
+         */
+
+        const token =
+            qrPath
+                .split("/student/qr-attendance/")[1]
+                .split("?")[0]
+                .split("#")[0]
+                .trim();
+
+
+        if (!token) {
+
+            alert(
+                "Attendance QR token is missing."
+            );
+
+            closeQRScanner();
+
+            return;
+        }
+
+
+        console.log(
+            "Attendance QR token:",
+            token
+        );
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Use the SAME host on which the
+         * student dashboard is currently running.
+         *
+         * This fixes the problem where teacher QR
+         * contains 127.0.0.1 or another LAN IP.
+         */
+
+        const attendanceURL =
+            window.location.origin +
+            "/student/qr-attendance/" +
+            encodeURIComponent(token);
+
+
+        console.log(
+            "Opening attendance URL:",
+            attendanceURL
+        );
+
+
+        if (status) {
+
+            status.innerText =
+                "QR verified. Marking attendance...";
+
+        }
+
+
+        /*
+         * Navigate to Flask backend
+         */
+
+        setTimeout(function() {
+
+            window.location.href =
+                attendanceURL;
+
+        }, 300);
+
+
+    } catch (error) {
+
+        console.error(
+            "QR processing error:",
+            error
+        );
+
+        alert(
+            "Invalid QR code. Please scan the QR generated by your teacher."
+        );
+
+        closeQRScanner();
+    }
+}
+
+
+/* =====================================================
+   STOP QR SCANNER
+===================================================== */
+
+function stopQRScanner() {
+
+    if (
+        qrScanner &&
+        qrScannerRunning
+    ) {
+
+        qrScanner.stop()
+            .then(function() {
+
+                qrScanner.clear();
+
+                qrScannerRunning = false;
+
+                qrScanner = null;
+
+            })
+            .catch(function(error) {
+
+                console.error(
+                    "QR Stop Error:",
+                    error
+                );
+
+                qrScannerRunning = false;
+
+                qrScanner = null;
+
+            });
+
+    } else {
+
+        qrScannerRunning = false;
+
+    }
+}
+
+
+/* =====================================================
+   CLOSE QR SCANNER
+===================================================== */
+
+function closeQRScanner() {
+
+    stopQRScanner();
+
+    const scannerModal =
+        document.getElementById(
+            "qrScannerModal"
+        );
+
+    if (scannerModal) {
+
+        scannerModal.style.display =
+            "none";
+
+    }
+}
+
+
+/* =====================================================
+   CLOSE SCANNER WITH ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeQRScanner();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   FINGERPRINT
+===================================================== */
+
+function startFingerprint() {
+
+    alert(
+        "USB fingerprint scanner will be connected next."
+    );
+
+}
+
+
+
+/* =====================================================
+   OPEN LEAVE FORM
+===================================================== */
+
+function openLeaveForm() {
+
+    const modal =
+        document.getElementById("leaveModal");
+
+    if (modal) {
+
+        modal.classList.add("show");
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CLOSE LEAVE FORM
+===================================================== */
+
+function closeLeaveForm() {
+
+    const modal =
+        document.getElementById("leaveModal");
+
+    if (modal) {
+
+        modal.classList.remove("show");
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CLOSE MODAL OUTSIDE
+===================================================== */
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById("leaveModal");
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
+
+            closeLeaveForm();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   AUTO HIDE FLASH MESSAGES
+===================================================== */
+
+setTimeout(
+    function() {
+
+        const messages =
+            document.querySelectorAll(
+                ".flash-message"
+            );
+
+
+        messages.forEach(
+            function(message) {
+
+                message.style.opacity = "0";
+
+
+                setTimeout(
+                    function() {
+
+                        message.remove();
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+    },
+    5000
+);
+
+
+</script>
+
+
+</body>
+
+</html>

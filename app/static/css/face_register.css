@@ -1,0 +1,626 @@
+/* =====================================================
+   SVM SMART ATTENDANCE
+   FACE REGISTRATION
+   ===================================================== */
+
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BODY
+   ===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px 15px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #28538d;
+
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+   ===================================================== */
+
+.face-container {
+
+    width: 600px;
+
+    max-width: 100%;
+
+    padding: 40px;
+
+    background:
+        rgba(91, 123, 174, 0.95);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.logo {
+
+    color: white;
+
+    font-size: 52px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =====================================================
+   MAIN TITLE
+   ===================================================== */
+
+.face-container h1 {
+
+    color: white;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =====================================================
+   SUBTITLE
+   ===================================================== */
+
+.subtitle {
+
+    color: #eeeeee;
+
+    font-size: 17px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =====================================================
+   STUDENT INFORMATION
+   ===================================================== */
+
+.student-info {
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    color: white;
+
+    line-height: 1.7;
+
+}
+
+
+.student-info strong {
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   CAMERA INSTRUCTION
+   ===================================================== */
+
+.camera-instruction {
+
+    color: white;
+
+    font-size: 16px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* =====================================================
+   CAMERA BOX
+   ===================================================== */
+
+.camera-box {
+
+    width: 100%;
+
+    background: #111111;
+
+    border-radius: 15px;
+
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* =====================================================
+   VIDEO
+   ===================================================== */
+
+.camera-box video {
+
+    width: 100%;
+
+    height: 360px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    background: #000000;
+
+}
+
+
+/* =====================================================
+   CAMERA STATUS
+   ===================================================== */
+
+.camera-status {
+
+    margin: 15px 0;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+
+/* =====================================================
+   SUCCESS STATUS
+   ===================================================== */
+
+.success-status {
+
+    background:
+        rgba(40, 167, 69, 0.30);
+
+}
+
+
+/* =====================================================
+   ERROR STATUS
+   ===================================================== */
+
+.error-status {
+
+    background:
+        rgba(220, 53, 69, 0.35);
+
+}
+
+
+/* =====================================================
+   BUTTON CONTAINER
+   ===================================================== */
+
+.button-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 15px 0;
+
+}
+
+
+/* =====================================================
+   ALL BUTTONS
+   ===================================================== */
+
+button {
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    padding: 14px 25px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+/* =====================================================
+   START CAMERA
+   ===================================================== */
+
+.start-camera {
+
+    background: #2196f3;
+
+    color: white;
+
+}
+
+
+.start-camera:hover {
+
+    background: #1976d2;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =====================================================
+   CAPTURE BUTTON
+   ===================================================== */
+
+.capture-btn {
+
+    background: #4caf50;
+
+    color: white;
+
+}
+
+
+.capture-btn:hover {
+
+    background: #43a047;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =====================================================
+   SAVE BUTTON
+   ===================================================== */
+
+.save-btn {
+
+    margin-top: 15px;
+
+    background: #ff9800;
+
+    color: white;
+
+    min-width: 180px;
+
+}
+
+
+.save-btn:hover {
+
+    background: #f57c00;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =====================================================
+   DISABLED BUTTON
+   ===================================================== */
+
+button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =====================================================
+   PREVIEW
+   ===================================================== */
+
+.preview-container {
+
+    display: none;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    border-radius: 15px;
+
+}
+
+
+.preview-container h3 {
+
+    color: white;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =====================================================
+   PREVIEW IMAGE
+   ===================================================== */
+
+#preview {
+
+    width: 180px;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 4px solid white;
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+.message {
+
+    padding: 12px;
+
+    margin-top: 18px;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    display: none;
+
+    line-height: 1.4;
+
+}
+
+
+/* =====================================================
+   SUCCESS MESSAGE
+   ===================================================== */
+
+.message.success {
+
+    background: #d4edda;
+
+    color: #155724;
+
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+   ===================================================== */
+
+.message.error {
+
+    background: #f8d7da;
+
+    color: #721c24;
+
+}
+
+
+/* =====================================================
+   INSTRUCTIONS
+   ===================================================== */
+
+.instructions {
+
+    margin-top: 25px;
+
+    padding: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    color: white;
+
+}
+
+
+.instructions h3 {
+
+    margin-bottom: 12px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+}
+
+
+.instructions ul {
+
+    padding-left: 22px;
+
+}
+
+
+.instructions li {
+
+    margin-bottom: 8px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =====================================================
+   BACK LINK
+   ===================================================== */
+
+.back-link {
+
+    display: inline-block;
+
+    margin-top: 20px;
+
+    color: white;
+
+    font-size: 16px;
+
+    text-decoration: none;
+
+}
+
+
+.back-link:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+
+        padding: 15px;
+
+    }
+
+
+    .face-container {
+
+        padding: 25px 18px;
+
+        border-radius: 20px;
+
+    }
+
+
+    .logo {
+
+        font-size: 42px;
+
+    }
+
+
+    .face-container h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .subtitle {
+
+        font-size: 15px;
+
+    }
+
+
+    .camera-box video {
+
+        height: 280px;
+
+    }
+
+
+    .button-container {
+
+        flex-direction: column;
+
+    }
+
+
+    .button-container button {
+
+        width: 100%;
+
+    }
+
+
+    .save-btn {
+
+        width: 100%;
+
+    }
+
+
+    #preview {
+
+        width: 150px;
+
+        height: 150px;
+
+    }
+
+}

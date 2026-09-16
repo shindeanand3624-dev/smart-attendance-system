@@ -1,0 +1,342 @@
+/* =====================================================
+   SVM SMART ATTENDANCE SYSTEM - LOGIN CSS
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #28538d;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    padding: 30px 15px;
+}
+
+
+/* =====================================================
+   MAIN LOGIN CONTAINER
+   ===================================================== */
+
+.login-container {
+    width: 525px;
+    max-width: 100%;
+
+    padding: 50px;
+
+    background: rgba(91, 123, 174, 0.78);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   SVM LOGO
+   ===================================================== */
+
+.logo {
+    color: white;
+
+    font-size: 58px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   SYSTEM NAME
+   ===================================================== */
+
+.system-name {
+    color: #eeeeee;
+
+    font-size: 21px;
+
+    margin-bottom: 38px;
+}
+
+
+/* =====================================================
+   LOGIN TITLE
+   ===================================================== */
+
+.login-container h2 {
+    color: white;
+
+    font-size: 30px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   STUDENT / TEACHER TABS
+   ===================================================== */
+
+.login-tabs {
+    width: 100%;
+
+    display: flex;
+
+    margin-bottom: 24px;
+}
+
+.login-tabs button {
+    width: 50%;
+
+    height: 54px;
+
+    border: none;
+
+    outline: none;
+
+    background: #dddddd;
+
+    color: #111111;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.login-tabs button:first-child {
+    background: #4caf50;
+
+    color: white;
+}
+
+.login-tabs button:hover {
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   INPUT FIELDS
+   ===================================================== */
+
+.login-container input {
+    width: 100%;
+
+    height: 57px;
+
+    display: block;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    padding: 0 17px;
+
+    margin-bottom: 22px;
+
+    background: white;
+
+    color: #333333;
+
+    font-size: 18px;
+}
+
+.login-container input::placeholder {
+    color: #777777;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+   ===================================================== */
+
+.login-btn {
+    width: 100%;
+
+    height: 60px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    background: #4caf50;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin: 0;
+}
+
+.login-btn:hover {
+    background: #43a047;
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+   ===================================================== */
+
+.forgot-password {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 0;
+
+    margin-bottom: 28px;
+
+    text-align: left;
+
+    color: #4b005f !important;
+
+    font-size: 19px;
+
+    text-decoration: underline !important;
+
+    cursor: pointer;
+}
+
+.forgot-password:hover {
+    color: #25002f !important;
+}
+
+
+/* =====================================================
+   REGISTRATION LINKS
+   ===================================================== */
+
+.registration-links {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+.registration-links a {
+    color: white !important;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+}
+
+.registration-links a:hover {
+    text-decoration: underline !important;
+}
+
+
+/* =====================================================
+   FLASH MESSAGES
+   ===================================================== */
+
+.flash-message {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-bottom: 18px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+.flash-message.error {
+    background: #ffdede;
+
+    color: #a00000;
+}
+
+.flash-message.success {
+    background: #d9f7df;
+
+    color: #16752a;
+}
+
+
+/* =====================================================
+   MOBILE RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .login-container {
+        width: 100%;
+
+        padding: 35px 25px;
+
+        border-radius: 20px;
+    }
+
+    .logo {
+        font-size: 48px;
+    }
+
+    .system-name {
+        font-size: 18px;
+
+        margin-bottom: 30px;
+    }
+
+    .login-container h2 {
+        font-size: 27px;
+    }
+
+    .login-tabs button {
+        font-size: 18px;
+    }
+
+    .login-container input {
+        font-size: 17px;
+    }
+
+    .login-btn {
+        font-size: 19px;
+    }
+
+    .forgot-password {
+        font-size: 18px;
+    }
+
+    .registration-links a {
+        font-size: 18px;
+    }
+}
