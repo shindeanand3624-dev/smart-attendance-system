@@ -1,3 +1,7 @@
+#cd C:\Users\DELL SmartAttendance.\start_attendance.bat
+#cd C:\Users\DELL SmartAttendance
+
+#.\start_attendance.bat
 from flask import (
     Flask,
     render_template,
@@ -44,12 +48,22 @@ app.secret_key = "svm-smart-attendance-secret-key"
 # =========================================================
 # MYSQL DATABASE CONFIGURATION
 # =========================================================
+import os
 
+# Create Aiven CA certificate on the server from an environment variable
+ssl_ca_path = "ca.pem"
+
+if os.environ.get("DB_SSL_CA"):
+    with open(ssl_ca_path, "w") as f:
+        f.write(os.environ["DB_SSL_CA"])
+        
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "smart_attendance"
+    "host": "mysql-3bace686-shindeanand3624-afc6.e.aivencloud.com",
+    "port": 26165,
+    "user": "avnadmin",
+    "password": os.environ.get("DB_PASSWORD"),
+    "database": "defaultdb",
+    "ssl_ca": "ca.pem"
 }
 
 
@@ -77,9 +91,11 @@ def get_db_connection():
 
     return mysql.connector.connect(
         host=DB_CONFIG["host"],
+        port=DB_CONFIG["port"],
         user=DB_CONFIG["user"],
         password=DB_CONFIG["password"],
-        database=DB_CONFIG["database"]
+        database=DB_CONFIG["database"],
+        ssl_ca=DB_CONFIG["ssl_ca"]
     )
 
 # =========================================================
@@ -116,7 +132,8 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-
+    print("LOGIN ROUTE CALLED")
+    print("METHOD:", request.method)
     if request.method == "GET":
         return render_template("index.html")
 
