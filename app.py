@@ -14,11 +14,17 @@ from flask import (
 
 import mysql.connector
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+print("DB_PASSWORD LOADED:", bool(os.environ.get("DB_PASSWORD")))
+
 import cv2
 import base64
 import io
 import uuid
 from datetime import datetime, timedelta, time
+
 try:
     import qrcode
 except ImportError:
@@ -29,7 +35,10 @@ from werkzeug.security import (
     check_password_hash
 )
 
-from face_attendance import recognize_student
+try:
+    from face_attendance import recognize_student
+except ModuleNotFoundError:
+    recognize_student = None
 
 
 # =========================================================
@@ -56,7 +65,7 @@ ssl_ca_path = "ca.pem"
 if os.environ.get("DB_SSL_CA"):
     with open(ssl_ca_path, "w") as f:
         f.write(os.environ["DB_SSL_CA"])
-        
+
 DB_CONFIG = {
     "host": "mysql-3bace686-shindeanand3624-afc6.e.aivencloud.com",
     "port": 26165,
@@ -280,9 +289,9 @@ def login():
             )
 
             flash(
-                "Database error occurred.",
-                "error"
-            )
+    f"Database error: {e}",
+    "error"
+)
 
             return redirect(url_for("home"))
 

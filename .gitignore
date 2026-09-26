@@ -1,10 +1,36 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+*.pyo
+
+# Environment / secrets
 .env
+.env.*
+!.env.example
+
+# Local database / backups
+smart_attendance_backup.sql
+*.sql
+
+# Face / student uploads
 student_images/
 app/static/uploads/
+
+# Local tools
 cloudflared.exe
 tailscale-setup-*.exe
-smart_attendance_backup.sql
-smart_attendance_backup.sql
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# gitignore
+.env
+ca.pem
+import_aiven.py
+test_aiven.py
