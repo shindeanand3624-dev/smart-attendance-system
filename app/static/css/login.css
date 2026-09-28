@@ -27,9 +27,9 @@ body.login-page {
     background:
         linear-gradient(
             90deg,
-            rgba(2, 15, 55, 0.20),
-            rgba(4, 35, 95, 0.08),
-            rgba(3, 15, 55, 0.20)
+            rgba(20, 75, 170, 0.58),
+            rgba(45, 120, 220, 0.42),
+            rgba(20, 55, 150, 0.58)
         ),
         url("/static/college-wallpaper.png")
         center center / cover no-repeat;
@@ -45,22 +45,25 @@ body.login-page {
 .login-page .login-background-overlay {
     position: fixed;
     inset: 0;
-
     z-index: 0;
 
     pointer-events: none;
 
     background:
-        radial-gradient(
-            circle at 50% 8%,
-            rgba(75, 170, 255, 0.10),
-            transparent 35%
+        linear-gradient(
+            135deg,
+            rgba(35, 105, 210, 0.28),
+            rgba(20, 70, 170, 0.20),
+            rgba(65, 120, 230, 0.28)
         ),
         radial-gradient(
-            circle at 80% 80%,
-            rgba(92, 60, 255, 0.10),
-            transparent 30%
+            circle at 50% 20%,
+            rgba(100, 190, 255, 0.25),
+            transparent 45%
         );
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 
