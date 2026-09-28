@@ -16,14 +16,14 @@ body.login-page {
     color: #fff;
 
     background:
-        linear-gradient(
-            90deg,
-            rgba(2, 15, 55, 0.48),
-            rgba(4, 35, 95, 0.22),
-            rgba(3, 15, 55, 0.48)
-        ),
-        url("/static/college-wallpaper.png")
-        center center / cover no-repeat;
+    linear-gradient(
+        90deg,
+        rgba(2, 15, 55, 0.18),
+        rgba(4, 35, 95, 0.08),
+        rgba(3, 15, 55, 0.18)
+    ),
+    url("/static/college-wallpaper.png")
+    center center / cover no-repeat;
 
     position: relative;
 }
@@ -33,24 +33,14 @@ body.login-page {
    BACKGROUND OVERLAY
    ========================================================= */
 
-.login-page .login-background-overlay {
-    position: fixed;
+.login-background-overlay {
+    position: absolute;
     inset: 0;
     z-index: 0;
 
-    pointer-events: none;
+    background: rgba(0, 20, 60, 0.12);
 
-    background:
-        radial-gradient(
-            circle at 50% 8%,
-            rgba(75, 170, 255, 0.22),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(92, 60, 255, 0.22),
-            transparent 30%
-        );
+    pointer-events: none;
 }
 
 
