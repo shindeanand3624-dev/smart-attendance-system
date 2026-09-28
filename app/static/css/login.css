@@ -34,14 +34,24 @@ body.login-page {
    BACKGROUND OVERLAY
    ========================================================= */
 
-.login-background-overlay {
-    position: absolute;
+.login-page .login-background-overlay {
+    position: fixed;
     inset: 0;
     z-index: 0;
 
-    background: rgba(0, 20, 60, 0.12);
-
     pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 8%,
+            rgba(75, 170, 255, 0.22),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(92, 60, 255, 0.22),
+            transparent 30%
+        );
 }
 
 
