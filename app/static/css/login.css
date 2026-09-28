@@ -1,342 +1,1253 @@
-/* =====================================================
-   SVM SMART ATTENDANCE SYSTEM - LOGIN CSS
-   ===================================================== */
+/* =========================================================
+   SVM SMART ATTENDANCE SYSTEM
+   LOGIN PAGE - GLASSMORPHISM UI
+   ========================================================= */
 
-* {
+/* ---------- PAGE BASE ---------- */
+
+body.login-page {
     margin: 0;
-    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3, 20, 70, 0.82),
+            rgba(8, 45, 110, 0.56),
+            rgba(8, 20, 70, 0.82)
+        ),
+        url("/static/images/college-wallpaper.jpg")
+        center center / cover no-repeat;
+
+    position: relative;
+}
+
+
+/* ---------- BACKGROUND OVERLAY ---------- */
+
+.login-page .login-background-overlay {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(56, 155, 255, 0.10),
+            transparent 45%
+        );
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* ---------- MAIN LOGIN LAYOUT ---------- */
+
+.login-page .login-layout {
+    position: relative;
+    z-index: 2;
+
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 30px;
     box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-}
 
-body {
-    min-height: 100vh;
+/* =========================================================
+   LEFT FEATURE PANEL
+   ========================================================= */
+
+.login-page .features {
+    position: fixed;
+    left: 55px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 235px;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 34px;
 
-    background: #28538d;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    padding: 30px 15px;
+    z-index: 3;
 }
 
 
-/* =====================================================
-   MAIN LOGIN CONTAINER
-   ===================================================== */
+.login-page .feature {
+    display: flex;
+    align-items: center;
+    gap: 17px;
 
-.login-container {
-    width: 525px;
-    max-width: 100%;
+    color: #ffffff;
 
-    padding: 50px;
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.5);
 
-    background: rgba(91, 123, 174, 0.78);
+    animation: featureFloat 4s ease-in-out infinite;
+}
 
-    border-radius: 25px;
+
+.login-page .feature:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+
+.login-page .feature:nth-child(3) {
+    animation-delay: 1.2s;
+}
+
+
+@keyframes featureFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* ---------- FEATURE ICON ---------- */
+
+.login-page .feature-icon {
+    width: 58px;
+    height: 58px;
+
+    min-width: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(91, 193, 255, 0.22),
+            rgba(31, 91, 170, 0.12)
+        );
+
+    border: 1px solid rgba(117, 208, 255, 0.45);
+
+    box-shadow:
+        0 0 22px rgba(44, 164, 255, 0.20),
+        inset 0 0 15px rgba(255, 255, 255, 0.04);
+
+    backdrop-filter: blur(12px);
+}
+
+
+.login-page .feature-icon svg {
+    width: 34px;
+    height: 34px;
+
+    fill: none;
+    stroke: #55b9ff;
+
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(65, 183, 255, 0.75)
+        );
+}
+
+
+.login-page .feature-icon .face-dot {
+    fill: #55b9ff;
+    stroke: none;
+}
+
+
+.login-page .feature-icon .qr-fill {
+    fill: #55b9ff;
+    stroke: none;
+}
+
+
+/* ---------- FEATURE TEXT ---------- */
+
+.login-page .feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.login-page .feature-text strong {
+    font-size: 17px;
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+}
+
+
+.login-page .feature-text span {
+    font-size: 12px;
+
+    color: rgba(255, 255, 255, 0.68);
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   RIGHT QUOTE
+   ========================================================= */
+
+.login-page .quote-panel {
+    position: fixed;
+    right: 58px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 235px;
+
+    text-align: right;
+
+    z-index: 3;
+}
+
+
+.login-page .quote-panel::before {
+    content: "“";
+
+    display: block;
+
+    font-size: 75px;
+    line-height: 0.55;
+
+    color: rgba(92, 193, 255, 0.60);
+
+    font-family: Georgia, serif;
+}
+
+
+.login-page .quote-panel p {
+    margin: 18px 0 0;
+
+    font-size: 18px;
+    line-height: 1.55;
+
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+
+.login-page .quote-panel span {
+    display: block;
+
+    margin-top: 14px;
+
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, 0.52);
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+   ========================================================= */
+
+.login-page .login-card {
+    position: relative;
+    z-index: 5;
+
+    width: 700px;
+    min-height: 820px;
+
+    box-sizing: border-box;
+
+    padding: 38px 62px 42px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.08)
+        );
+
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.40),
+        0 0 45px rgba(37, 145, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+
+    overflow: hidden;
+
+    animation: cardAppear 0.7s ease-out;
+}
+
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+.login-page .login-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    top: -160px;
+    right: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(77, 181, 255, 0.13);
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+
+.login-page .login-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    bottom: -130px;
+    left: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(67, 115, 255, 0.10);
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SVM LOGO
+   ========================================================= */
+
+.login-page .svm-logo {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+
+.login-page .svm-text {
+    margin-top: -3px;
+
+    font-size: 38px;
+    line-height: 1;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 12px rgba(67, 190, 255, 0.65),
+        0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ---------- GRADUATION CAP ---------- */
+
+.login-page .graduation-cap {
+    position: relative;
+
+    width: 72px;
+    height: 52px;
+
+    margin-bottom: -2px;
+}
+
+
+.login-page .cap-board {
+    position: absolute;
+
+    left: 50%;
+    top: 10px;
+
+    width: 58px;
+    height: 58px;
+
+    transform:
+        translateX(-50%)
+        rotate(45deg)
+        scale(0.72);
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #63caff,
+            #1881dc
+        );
+
+    box-shadow:
+        0 0 16px rgba(53, 180, 255, 0.75);
+}
+
+
+.login-page .cap-head {
+    position: absolute;
+
+    left: 50%;
+    top: 23px;
+
+    width: 43px;
+    height: 18px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #3bb8ff,
+            #0d69bd
+        );
+
+    box-shadow:
+        0 5px 8px rgba(0, 0, 0, 0.18);
+}
+
+
+.login-page .cap-tassel {
+    position: absolute;
+
+    left: 50%;
+    top: 29px;
+
+    width: 3px;
+    height: 23px;
+
+    background: #72d5ff;
+
+    transform: rotate(25deg);
+    transform-origin: top;
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 0 7px rgba(94, 204, 255, 0.7);
+}
+
+
+.login-page .cap-tassel::after {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    bottom: -3px;
+    left: -3px;
+
+    border-radius: 50%;
+
+    background: #69ceff;
+}
+
+
+/* =========================================================
+   SYSTEM TITLE
+   ========================================================= */
+
+.login-page .system-name {
+    position: relative;
+    z-index: 2;
 
     text-align: center;
 
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    margin-top: 6px;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 8px rgba(68, 187, 255, 0.35);
 }
 
 
-/* =====================================================
-   SVM LOGO
-   ===================================================== */
+.login-page .tagline {
+    position: relative;
+    z-index: 2;
 
-.logo {
-    color: white;
+    text-align: center;
 
-    font-size: 58px;
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    margin-bottom: 12px;
-}
-
-
-/* =====================================================
-   SYSTEM NAME
-   ===================================================== */
-
-.system-name {
-    color: #eeeeee;
-
-    font-size: 21px;
-
-    margin-bottom: 38px;
-}
-
-
-/* =====================================================
-   LOGIN TITLE
-   ===================================================== */
-
-.login-container h2 {
-    color: white;
-
-    font-size: 30px;
-
-    margin-bottom: 30px;
-}
-
-
-/* =====================================================
-   STUDENT / TEACHER TABS
-   ===================================================== */
-
-.login-tabs {
-    width: 100%;
-
-    display: flex;
-
-    margin-bottom: 24px;
-}
-
-.login-tabs button {
-    width: 50%;
-
-    height: 54px;
-
-    border: none;
-
-    outline: none;
-
-    background: #dddddd;
-
-    color: #111111;
-
-    font-size: 20px;
-
-    cursor: pointer;
-}
-
-.login-tabs button:first-child {
-    background: #4caf50;
-
-    color: white;
-}
-
-.login-tabs button:hover {
-    opacity: 0.9;
-}
-
-
-/* =====================================================
-   INPUT FIELDS
-   ===================================================== */
-
-.login-container input {
-    width: 100%;
-
-    height: 57px;
-
-    display: block;
-
-    border: none;
-
-    outline: none;
-
-    border-radius: 10px;
-
-    padding: 0 17px;
-
-    margin-bottom: 22px;
-
-    background: white;
-
-    color: #333333;
-
-    font-size: 18px;
-}
-
-.login-container input::placeholder {
-    color: #777777;
-}
-
-
-/* =====================================================
-   LOGIN BUTTON
-   ===================================================== */
-
-.login-btn {
-    width: 100%;
-
-    height: 60px;
-
-    border: none;
-
-    outline: none;
-
-    border-radius: 10px;
-
-    background: #4caf50;
-
-    color: white;
-
-    font-size: 21px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    margin: 0;
-}
-
-.login-btn:hover {
-    background: #43a047;
-}
-
-
-/* =====================================================
-   FORGOT PASSWORD
-   ===================================================== */
-
-.forgot-password {
-    display: block;
-
-    width: 100%;
-
-    margin-top: 0;
-
+    margin-top: 5px;
     margin-bottom: 28px;
 
-    text-align: left;
+    font-size: 11px;
 
-    color: #4b005f !important;
+    letter-spacing: 2px;
 
-    font-size: 19px;
-
-    text-decoration: underline !important;
-
-    cursor: pointer;
-}
-
-.forgot-password:hover {
-    color: #25002f !important;
+    color: rgba(255, 255, 255, 0.57);
 }
 
 
-/* =====================================================
-   REGISTRATION LINKS
-   ===================================================== */
+/* =========================================================
+   LOGIN HEADING
+   ========================================================= */
 
-.registration-links {
-    display: flex;
+.login-page .login-card h1 {
+    position: relative;
+    z-index: 2;
 
-    flex-direction: column;
+    margin: 0 0 24px;
 
-    align-items: center;
+    text-align: center;
 
-    gap: 24px;
-}
+    font-size: 27px;
+    font-weight: 700;
 
-.registration-links a {
-    color: white !important;
+    color: #ffffff;
 
-    font-size: 20px;
-
-    font-weight: bold;
-
-    text-decoration: none !important;
-
-    cursor: pointer;
-}
-
-.registration-links a:hover {
-    text-decoration: underline !important;
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.30);
 }
 
 
-/* =====================================================
-   FLASH MESSAGES
-   ===================================================== */
+/* =========================================================
+   FLASH MESSAGE
+   ========================================================= */
 
-.flash-message {
-    width: 100%;
-
-    padding: 12px;
+.login-page .flash-message {
+    position: relative;
+    z-index: 5;
 
     margin-bottom: 18px;
 
-    border-radius: 8px;
+    padding: 11px 15px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    background: rgba(255, 75, 75, 0.15);
+
+    border: 1px solid rgba(255, 120, 120, 0.38);
+
+    color: #ffdede;
+
+    backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   STUDENT / TEACHER TABS
+   ========================================================= */
+
+.login-page .tabs {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    padding: 5px;
+
+    border-radius: 15px;
+
+    background: rgba(0, 0, 0, 0.13);
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+
+.login-page .login-tab {
+    height: 48px;
+
+    border: 1px solid transparent;
+
+    border-radius: 11px;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.68);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    transition:
+        0.25s ease;
+
+    font-family: inherit;
+}
+
+
+.login-page .login-tab:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+.login-page .login-tab.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(63, 177, 255, 0.42),
+            rgba(33, 116, 205, 0.30)
+        );
+
+    border-color:
+        rgba(108, 207, 255, 0.42);
+
+    box-shadow:
+        0 0 18px rgba(45, 166, 255, 0.18);
+}
+
+
+.login-page .tab-icon {
+    display: flex;
+    align-items: center;
+}
+
+
+.login-page .tab-icon svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.login-page .login-form {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ---------- INPUT BOX ---------- */
+
+.login-page .input-box {
+    position: relative;
+
+    width: 100%;
+
+    height: 56px;
+
+    margin-bottom: 17px;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    border-radius: 14px;
+
+    background:
+        rgba(3, 25, 70, 0.26);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.login-page .input-box:focus-within {
+    border-color:
+        rgba(74, 194, 255, 0.82);
+
+    background:
+        rgba(3, 31, 82, 0.38);
+
+    box-shadow:
+        0 0 0 3px rgba(54, 178, 255, 0.10),
+        0 0 20px rgba(46, 173, 255, 0.14);
+}
+
+
+/* ---------- INPUT ICON ---------- */
+
+.login-page .input-icon {
+    width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #69c9ff;
+}
+
+
+.login-page .input-icon svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* ---------- INPUT ---------- */
+
+.login-page .input-box input {
+    flex: 1;
+
+    height: 100%;
+
+    min-width: 0;
+
+    padding: 0 14px 0 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-family: inherit;
+}
+
+
+.login-page .input-box input::placeholder {
+    color:
+        rgba(255, 255, 255, 0.52);
+}
+
+
+.login-page .input-box input:-webkit-autofill,
+.login-page .input-box input:-webkit-autofill:hover,
+.login-page .input-box input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+
+    transition:
+        background-color 9999s ease-in-out 0s;
+}
+
+
+/* =========================================================
+   PASSWORD EYE
+   ========================================================= */
+
+.login-page .eye {
+    width: 48px;
+
+    height: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+
+.login-page .eye:hover {
+    color: #66caff;
+}
+
+
+.login-page .eye svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   FORGOT PASSWORD
+   ========================================================= */
+
+.login-page .forgot {
+    position: relative;
+    z-index: 2;
+
+    text-align: right;
+
+    margin: -4px 2px 20px;
+}
+
+
+.login-page .forgot a {
+    color: #65c8ff;
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+.login-page .forgot a:hover {
+    color: #ffffff;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-page .login-btn {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    height: 55px;
+
+    border: none;
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #36baff,
+            #1476dc
+        );
+
+    color: #ffffff;
 
     font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    font-family: inherit;
+
+    box-shadow:
+        0 9px 25px rgba(18, 125, 222, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
 }
 
-.flash-message.error {
-    background: #ffdede;
 
-    color: #a00000;
+.login-page .login-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 13px 32px rgba(18, 125, 222, 0.42),
+        0 0 22px rgba(55, 188, 255, 0.25);
 }
 
-.flash-message.success {
-    background: #d9f7df;
 
-    color: #16752a;
+.login-page .login-btn:active {
+    transform: translateY(0);
 }
 
 
-/* =====================================================
-   MOBILE RESPONSIVE
-   ===================================================== */
+.login-page .login-arrow {
+    font-size: 19px;
 
-@media (max-width: 600px) {
+    transition:
+        transform 0.2s ease;
+}
 
-    body {
-        padding: 15px;
+
+.login-page .login-btn:hover .login-arrow {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   REGISTER SECTION
+   ========================================================= */
+
+.login-page .register {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 28px;
+
+    padding-top: 23px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    text-align: center;
+}
+
+
+.login-page .register-title {
+    margin-bottom: 14px;
+
+    font-size: 12px;
+
+    color:
+        rgba(255, 255, 255, 0.57);
+
+    letter-spacing: 0.4px;
+}
+
+
+.login-page .register-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+.login-page .register-buttons a {
+    min-height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.22);
+
+    transition:
+        0.22s ease;
+}
+
+
+.login-page .register-buttons a:hover {
+    transform: translateY(-2px);
+
+    background:
+        rgba(73, 184, 255, 0.16);
+
+    border-color:
+        rgba(96, 201, 255, 0.50);
+
+    box-shadow:
+        0 0 18px rgba(51, 175, 255, 0.12);
+}
+
+
+.login-page .register-buttons svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: #69c9ff;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1250px) {
+
+    .login-page .features {
+        left: 25px;
+        width: 200px;
     }
 
-    .login-container {
+    .login-page .quote-panel {
+        right: 25px;
+        width: 200px;
+    }
+
+    .login-page .feature-text strong {
+        font-size: 15px;
+    }
+
+    .login-page .feature-text span {
+        font-size: 11px;
+    }
+
+}
+
+
+@media (max-width: 1050px) {
+
+    .login-page .features,
+    .login-page .quote-panel {
+        display: none;
+    }
+
+    .login-page .login-layout {
+        padding: 30px 18px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    body.login-page {
+        background-position: center;
+    }
+
+    .login-page .login-layout {
+        padding: 20px 12px;
+    }
+
+    .login-page .login-card {
         width: 100%;
+        min-height: auto;
 
-        padding: 35px 25px;
+        padding:
+            30px 24px 32px;
 
-        border-radius: 20px;
+        border-radius: 24px;
     }
 
-    .logo {
-        font-size: 48px;
+    .login-page .system-name {
+        font-size: 15px;
+        letter-spacing: 1.5px;
     }
 
-    .system-name {
-        font-size: 18px;
-
-        margin-bottom: 30px;
+    .login-page .login-card h1 {
+        font-size: 23px;
     }
 
-    .login-container h2 {
-        font-size: 27px;
+    .login-page .register-buttons {
+        grid-template-columns: 1fr;
     }
 
-    .login-tabs button {
-        font-size: 18px;
+}
+
+
+@media (max-width: 420px) {
+
+    .login-page .login-card {
+        padding:
+            25px 17px 27px;
     }
 
-    .login-container input {
-        font-size: 17px;
+    .login-page .svm-text {
+        font-size: 32px;
     }
 
-    .login-btn {
-        font-size: 19px;
+    .login-page .tagline {
+        font-size: 9px;
+        margin-bottom: 23px;
     }
 
-    .forgot-password {
-        font-size: 18px;
+    .login-page .login-card h1 {
+        font-size: 21px;
     }
 
-    .registration-links a {
-        font-size: 18px;
+    .login-page .login-tab {
+        font-size: 12px;
     }
+
+    .login-page .input-box {
+        height: 53px;
+    }
+
+}
+
+
+/* =========================================================
+   SHORT SCREEN FIX
+   Keeps REGISTER section visible
+   ========================================================= */
+
+@media (max-height: 900px) and (min-width: 701px) {
+
+    .login-page .login-layout {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .login-page .login-card {
+        min-height: auto;
+
+        padding:
+            25px 55px 28px;
+    }
+
+    .login-page .svm-logo {
+        transform: scale(0.86);
+        margin-bottom: 0;
+    }
+
+    .login-page .tagline {
+        margin-bottom: 18px;
+    }
+
+    .login-page .login-card h1 {
+        margin-bottom: 17px;
+        font-size: 24px;
+    }
+
+    .login-page .tabs {
+        margin-bottom: 16px;
+    }
+
+    .login-page .input-box {
+        height: 50px;
+        margin-bottom: 12px;
+    }
+
+    .login-page .forgot {
+        margin-bottom: 14px;
+    }
+
+    .login-page .login-btn {
+        height: 49px;
+    }
+
+    .login-page .register {
+        margin-top: 19px;
+        padding-top: 16px;
+    }
+
+    .login-page .register-title {
+        margin-bottom: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.login-page button:focus-visible,
+.login-page a:focus-visible,
+.login-page input:focus-visible {
+    outline:
+        2px solid #66caff;
+
+    outline-offset: 3px;
 }
