@@ -23,7 +23,7 @@ body.login-page {
             rgba(4, 35, 95, 0.34),
             rgba(3, 15, 55, 0.66)
         ),
-        url("/static/images/college-wallpaper.jpg")
+        url("/static/college-wallpaper.png")
         center center / cover no-repeat;
 
     position: relative;
