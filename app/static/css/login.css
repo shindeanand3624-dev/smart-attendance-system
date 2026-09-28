@@ -220,33 +220,35 @@ body.login-page {
    SVM LOGO
    ========================================================= */
 
-.login-page .svm-logo {
-    position: relative;
-    z-index: 3;
-
+.svm-logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-bottom: 5px;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
+.graduation-cap {
+    width: 58px;
+    height: 58px;
+    display: block;
+    margin-bottom: -2px;
 
-.login-page .svm-text {
-    margin-top: -2px;
+    filter:
+        drop-shadow(0 0 5px rgba(255, 255, 255, 0.7))
+        drop-shadow(0 0 12px rgba(90, 180, 255, 0.45));
+}
 
-    font-size: 64px;
-    line-height: 0.95;
-
+.svm-text {
+    font-size: 56px;
+    line-height: 0.9;
     font-weight: 900;
-
-    letter-spacing: 3px;
-
+    letter-spacing: -2px;
     color: #ffffff;
 
     text-shadow:
-        0 0 15px rgba(70, 190, 255, 0.65),
-        0 4px 15px rgba(0, 0, 0, 0.35);
+        0 3px 10px rgba(0, 0, 0, 0.25),
+        0 0 12px rgba(255, 255, 255, 0.25);
 }
 
 
