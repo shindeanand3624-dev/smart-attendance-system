@@ -12,16 +12,15 @@ body.login-page {
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
-
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    color: #ffffff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #fff;
 
     background:
         linear-gradient(
             90deg,
-            rgba(2, 15, 55, 0.62),
-            rgba(4, 35, 95, 0.34),
-            rgba(3, 15, 55, 0.66)
+            rgba(2, 15, 55, 0.48),
+            rgba(4, 35, 95, 0.22),
+            rgba(3, 15, 55, 0.48)
         ),
         url("/static/college-wallpaper.png")
         center center / cover no-repeat;
