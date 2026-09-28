@@ -1022,34 +1022,31 @@ body.login-page {
 }
 
 
+/* =========================================================
+   MOBILE - KEEP DESKTOP STYLE
+   ========================================================= */
+
 @media (max-width: 1050px) {
 
-    .login-page .features,
-    .login-page .quote-panel {
-        display: none;
-    }
-
-    .login-page .login-card {
-        width: 680px;
-    }
-}
-
-
-@media (max-width: 720px) {
-
     body.login-page {
+        overflow-x: hidden;
         overflow-y: auto;
+    }
 
+    /* Keep same college background */
+    body.login-page {
         background:
             linear-gradient(
-                135deg,
-                rgba(2, 20, 75, 0.30),
-                rgba(8, 48, 120, 0.22)
+                90deg,
+                rgba(2, 15, 55, 0.20),
+                rgba(4, 35, 95, 0.08),
+                rgba(3, 15, 55, 0.20)
             ),
             url("/static/college-wallpaper.png")
-            center / cover no-repeat;
+            center center / cover no-repeat;
     }
 
+    /* Same glass card style */
     .login-page .login-card {
         position: relative;
 
@@ -1058,26 +1055,190 @@ body.login-page {
 
         transform: none;
 
-        width: calc(100% - 24px);
+        width: calc(100% - 30px);
 
         min-height: auto;
 
         margin: 20px auto;
 
+        padding: 32px 28px 32px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(65, 130, 210, 0.17),
+                rgba(18, 48, 110, 0.14)
+            );
+
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+    }
+
+    /* Keep features visible */
+    .login-page .features {
+        position: relative;
+
+        left: auto;
+        top: auto;
+
+        transform: none;
+
+        width: calc(100% - 30px);
+
+        margin: 25px auto;
+
+        flex-direction: row;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 20px;
+    }
+
+    .login-page .feature {
+        width: 180px;
+    }
+
+    /* Keep quote visible */
+    .login-page .quote-panel {
+        position: relative;
+
+        right: auto;
+        top: auto;
+
+        transform: none;
+
+        width: calc(100% - 40px);
+
+        margin: 20px auto 40px;
+
+        text-align: center;
+    }
+
+    .login-page .quote-panel p {
+        font-size: 22px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body.login-page {
+        overflow-y: auto;
+
+        min-height: 100vh;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(2, 15, 55, 0.20),
+                rgba(4, 35, 95, 0.08),
+                rgba(3, 15, 55, 0.20)
+            ),
+            url("/static/college-wallpaper.png")
+            center center / cover no-repeat;
+    }
+
+    .login-page .login-card {
+        width: calc(100% - 20px);
+
+        margin: 15px auto;
+
         padding:
-            30px 22px 30px;
+            28px 18px 30px;
+
+        border-radius: 24px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(65, 130, 210, 0.17),
+                rgba(18, 48, 110, 0.14)
+            );
+
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
     }
 
     .login-page .svm-text {
-        font-size: 52px;
+        font-size: 50px;
     }
 
     .login-page .system-name {
-        font-size: 17px;
+        font-size: 16px;
+
+        letter-spacing: 1.2px;
+    }
+
+    .login-page .tagline {
+        font-size: 11px;
+
+        letter-spacing: 2px;
     }
 
     .login-page .login-card h1 {
         font-size: 24px;
+    }
+
+    .login-page .tabs {
+        height: 58px;
+    }
+
+    .login-page .login-tab {
+        font-size: 15px;
+    }
+
+    .login-page .input-box {
+        height: 58px;
+    }
+
+    .login-page .login-btn {
+        height: 60px;
+    }
+
+    .login-page .features {
+        width: calc(100% - 20px);
+
+        gap: 15px;
+    }
+
+    .login-page .feature {
+        width: 150px;
+
+        gap: 10px;
+    }
+
+    .login-page .feature-icon {
+        width: 52px;
+        height: 52px;
+
+        min-width: 52px;
+    }
+
+    .login-page .feature-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .login-page .feature-text strong {
+        font-size: 14px;
+    }
+
+    .login-page .feature-text span {
+        font-size: 11px;
+    }
+
+    .login-page .quote-panel {
+        width: calc(100% - 30px);
+    }
+
+    .login-page .quote-panel p {
+        font-size: 20px;
     }
 
     .login-page .register-buttons {
