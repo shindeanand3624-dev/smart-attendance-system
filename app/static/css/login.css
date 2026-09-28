@@ -18,9 +18,9 @@ body.login-page {
    background:
     linear-gradient(
         90deg,
-        rgba(2, 15, 55, 0.48),
-        rgba(4, 35, 95, 0.22),
-        rgba(3, 15, 55, 0.48)
+        rgba(2, 15, 55, 0.18),
+        rgba(4, 35, 95, 0.08),
+        rgba(3, 15, 55, 0.18)
     ),
     url("/static/college-wallpaper.png")
     center center / cover no-repeat;
