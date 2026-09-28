@@ -14,9 +14,7 @@
     >
 </head>
 
-
 <body class="login-page">
-
 
     <!-- =========================================================
          BACKGROUND OVERLAY
@@ -31,56 +29,29 @@
 
     <aside class="features">
 
-
         <!-- FACE RECOGNITION -->
 
         <div class="feature">
 
             <div class="feature-icon face-icon">
 
-                <svg
-                    viewBox="0 0 64 64"
-                    aria-hidden="true">
-
-                    <!-- Scanner corners -->
+                <svg viewBox="0 0 64 64" aria-hidden="true">
 
                     <path d="M8 22V12a4 4 0 0 1 4-4h10"/>
                     <path d="M42 8h10a4 4 0 0 1 4 4v10"/>
                     <path d="M56 42v10a4 4 0 0 1-4 4H42"/>
                     <path d="M22 56H12a4 4 0 0 1-4-4V42"/>
 
-                    <!-- Face -->
+                    <circle cx="32" cy="31" r="15"/>
 
-                    <circle
-                        cx="32"
-                        cy="31"
-                        r="15"
-                    />
-
-                    <!-- Eyes -->
-
-                    <circle
-                        cx="26"
-                        cy="29"
-                        r="2"
-                        class="face-dot"
-                    />
-
-                    <circle
-                        cx="38"
-                        cy="29"
-                        r="2"
-                        class="face-dot"
-                    />
-
-                    <!-- Smile -->
+                    <circle cx="26" cy="29" r="2" class="face-dot"/>
+                    <circle cx="38" cy="29" r="2" class="face-dot"/>
 
                     <path d="M25 37c4 4 10 4 14 0"/>
 
                 </svg>
 
             </div>
-
 
             <div class="feature-text">
 
@@ -97,16 +68,13 @@
         </div>
 
 
-
         <!-- FINGERPRINT -->
 
         <div class="feature">
 
             <div class="feature-icon">
 
-                <svg
-                    viewBox="0 0 64 64"
-                    aria-hidden="true">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
 
                     <path d="M32 8c-13 0-23 10-23 23"/>
                     <path d="M32 15c-9 0-16 7-16 16"/>
@@ -125,7 +93,6 @@
 
             </div>
 
-
             <div class="feature-text">
 
                 <h3>
@@ -141,112 +108,31 @@
         </div>
 
 
-
         <!-- QR CODE -->
 
         <div class="feature">
 
             <div class="feature-icon">
 
-                <svg
-                    viewBox="0 0 64 64"
-                    aria-hidden="true">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
 
-                    <!-- QR frame -->
+                    <rect x="8" y="8" width="20" height="20"/>
+                    <rect x="36" y="8" width="20" height="20"/>
+                    <rect x="8" y="36" width="20" height="20"/>
 
-                    <rect
-                        x="8"
-                        y="8"
-                        width="20"
-                        height="20"
-                    />
+                    <rect x="14" y="14" width="8" height="8" class="qr-fill"/>
+                    <rect x="42" y="14" width="8" height="8" class="qr-fill"/>
+                    <rect x="14" y="42" width="8" height="8" class="qr-fill"/>
 
-                    <rect
-                        x="36"
-                        y="8"
-                        width="20"
-                        height="20"
-                    />
-
-                    <rect
-                        x="8"
-                        y="36"
-                        width="20"
-                        height="20"
-                    />
-
-                    <!-- QR inner squares -->
-
-                    <rect
-                        x="14"
-                        y="14"
-                        width="8"
-                        height="8"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="42"
-                        y="14"
-                        width="8"
-                        height="8"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="14"
-                        y="42"
-                        width="8"
-                        height="8"
-                        class="qr-fill"
-                    />
-
-                    <!-- QR pattern -->
-
-                    <rect
-                        x="36"
-                        y="36"
-                        width="7"
-                        height="7"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="47"
-                        y="36"
-                        width="9"
-                        height="5"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="36"
-                        y="47"
-                        width="5"
-                        height="9"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="45"
-                        y="46"
-                        width="5"
-                        height="5"
-                        class="qr-fill"
-                    />
-
-                    <rect
-                        x="52"
-                        y="52"
-                        width="4"
-                        height="4"
-                        class="qr-fill"
-                    />
+                    <rect x="36" y="36" width="7" height="7" class="qr-fill"/>
+                    <rect x="47" y="36" width="9" height="5" class="qr-fill"/>
+                    <rect x="36" y="47" width="5" height="9" class="qr-fill"/>
+                    <rect x="45" y="46" width="5" height="5" class="qr-fill"/>
+                    <rect x="52" y="52" width="4" height="4" class="qr-fill"/>
 
                 </svg>
 
             </div>
-
 
             <div class="feature-text">
 
@@ -263,7 +149,6 @@
         </div>
 
     </aside>
-
 
 
     <!-- =========================================================
@@ -284,7 +169,6 @@
     </aside>
 
 
-
     <!-- =========================================================
          MAIN LOGIN CARD
          ========================================================= -->
@@ -296,37 +180,64 @@
              SVM LOGO
              ===================================================== -->
 
-       <div class="svm-logo">
-    <svg class="graduation-cap" viewBox="0 0 64 64"
-         xmlns="http://www.w3.org/2000/svg"
-         aria-hidden="true">
+        <div class="svm-logo">
 
-        <!-- Cap top -->
-        <path
-            d="M4 25L32 11L60 25L32 39L4 25Z"
-            fill="#ffffff"/>
+            <!-- WHITE GRADUATION CAP -->
 
-        <!-- Cap bottom -->
-        <path
-            d="M16 31V43C16 47 23 52 32 52C41 52 48 47 48 43V31L32 39L16 31Z"
-            fill="#ffffff"/>
+            <svg
+                class="graduation-cap"
+                viewBox="0 0 100 75"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
 
-        <!-- Tassel -->
-        <path
-            d="M57 27V39"
-            stroke="#ffffff"
-            stroke-width="3"
-            stroke-linecap="round"/>
+                <!-- Cap top -->
+                <path
+                    d="M5 27
+                       L50 5
+                       L95 27
+                       L50 49
+                       Z"
+                    fill="#ffffff"
+                />
 
-        <circle
-            cx="57"
-            cy="41"
-            r="3"
-            fill="#ffffff"/>
-    </svg>
+                <!-- Cap lower body -->
+                <path
+                    d="M22 35
+                       L50 49
+                       L78 35
+                       V49
+                       C78 59 65 68 50 68
+                       C35 68 22 59 22 49
+                       Z"
+                    fill="#ffffff"
+                />
 
-    <div class="svm-text">SVM</div>
-</div>
+                <!-- Tassel -->
+                <path
+                    d="M87 30
+                       V53"
+                    stroke="#ffffff"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                />
+
+                <circle
+                    cx="87"
+                    cy="57"
+                    r="3"
+                    fill="#ffffff"
+                />
+
+            </svg>
+
+
+            <!-- SVM -->
+
+            <div class="svm-text">
+                SVM
+            </div>
+
+        </div>
 
 
         <!-- SYSTEM NAME -->
@@ -336,7 +247,6 @@
             SMART ATTENDANCE SYSTEM
 
         </div>
-
 
 
         <!-- TAGLINE -->
@@ -352,13 +262,11 @@
         </div>
 
 
-
         <!-- LOGIN TITLE -->
 
         <h1>
             Login to Your Account
         </h1>
-
 
 
         <!-- =====================================================
@@ -384,13 +292,11 @@
         {% endwith %}
 
 
-
         <!-- =====================================================
              STUDENT / TEACHER TABS
              ===================================================== -->
 
         <div class="tabs">
-
 
             <!-- STUDENT -->
 
@@ -423,7 +329,6 @@
                 Student
 
             </button>
-
 
 
             <!-- TEACHER -->
@@ -462,9 +367,7 @@
 
             </button>
 
-
         </div>
-
 
 
         <!-- =====================================================
@@ -474,7 +377,6 @@
         <form
             action="{{ url_for('login') }}"
             method="POST">
-
 
             <!-- LOGIN TYPE -->
 
@@ -486,11 +388,9 @@
             >
 
 
-
             <!-- USERNAME -->
 
             <div class="input-box">
-
 
                 <span class="input-icon">
 
@@ -512,7 +412,6 @@
 
                 </span>
 
-
                 <input
                     type="text"
                     name="username"
@@ -521,15 +420,12 @@
                     required
                 >
 
-
             </div>
-
 
 
             <!-- PASSWORD -->
 
             <div class="input-box">
-
 
                 <span class="input-icon">
 
@@ -553,7 +449,6 @@
 
                 </span>
 
-
                 <input
                     type="password"
                     name="password"
@@ -561,7 +456,6 @@
                     placeholder="Password"
                     required
                 >
-
 
                 <button
                     type="button"
@@ -587,9 +481,7 @@
 
                 </button>
 
-
             </div>
-
 
 
             <!-- FORGOT PASSWORD -->
@@ -603,7 +495,6 @@
                 </a>
 
             </div>
-
 
 
             <!-- LOGIN BUTTON -->
@@ -620,9 +511,7 @@
 
             </button>
 
-
         </form>
-
 
 
         <!-- =====================================================
@@ -630,7 +519,6 @@
              ===================================================== -->
 
         <div class="register">
-
 
             <div class="register-title">
 
@@ -645,9 +533,7 @@
             </div>
 
 
-
             <div class="register-buttons">
-
 
                 <!-- STUDENT REGISTER -->
 
@@ -682,7 +568,6 @@
                 </a>
 
 
-
                 <!-- TEACHER REGISTER -->
 
                 <a href="{{ url_for('teacher_register') }}">
@@ -711,14 +596,11 @@
 
                 </a>
 
-
             </div>
 
         </div>
 
-
     </main>
-
 
 
     <!-- =========================================================
@@ -726,7 +608,6 @@
          ========================================================= -->
 
     <script>
-
 
         /* =====================================================
            STUDENT LOGIN
@@ -738,25 +619,21 @@
                 .getElementById("loginType")
                 .value = "student";
 
-
             document
                 .getElementById("studentTab")
                 .classList
                 .add("active");
-
 
             document
                 .getElementById("teacherTab")
                 .classList
                 .remove("active");
 
-
             document
                 .getElementById("username")
                 .placeholder = "Student ID / Email";
 
         }
-
 
 
         /* =====================================================
@@ -769,25 +646,21 @@
                 .getElementById("loginType")
                 .value = "teacher";
 
-
             document
                 .getElementById("teacherTab")
                 .classList
                 .add("active");
-
 
             document
                 .getElementById("studentTab")
                 .classList
                 .remove("active");
 
-
             document
                 .getElementById("username")
                 .placeholder = "Teacher ID / Email";
 
         }
-
 
 
         /* =====================================================
@@ -812,7 +685,6 @@
         }
 
     </script>
-
 
 </body>
 
