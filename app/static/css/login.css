@@ -218,134 +218,65 @@ body.login-page {
 
 /* =========================================================
    SVM LOGO
+   WHITE GRADUATION CAP
    ========================================================= */
 
-.svm-logo {
+.login-page .svm-logo {
+    position: relative;
+    z-index: 5;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     margin-bottom: 10px;
 }
 
-.graduation-cap {
-    width: 58px;
-    height: 58px;
-    display: block;
-    margin-bottom: -2px;
 
-    filter:
-        drop-shadow(0 0 5px rgba(255, 255, 255, 0.7))
-        drop-shadow(0 0 12px rgba(90, 180, 255, 0.45));
-}
-
-.svm-text {
-    font-size: 56px;
-    line-height: 0.9;
-    font-weight: 900;
-    letter-spacing: -2px;
-    color: #ffffff;
-
-    text-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.25),
-        0 0 12px rgba(255, 255, 255, 0.25);
-}
-
-
-/* =========================================================
-   GRADUATION CAP
-   ========================================================= */
+/* White SVG graduation cap */
 
 .login-page .graduation-cap {
     position: relative;
 
-    width: 82px;
-    height: 45px;
+    width: 68px;
+    height: 51px;
 
-    margin-bottom: 1px;
-}
+    display: block;
 
+    margin: 0 auto 3px;
 
-.login-page .cap-board {
-    position: absolute;
-
-    left: 50%;
-    top: 2px;
-
-    width: 52px;
-    height: 52px;
-
-    transform:
-        translateX(-50%)
-        rotate(45deg);
-
-    border-radius: 5px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #69d1ff,
-            #087be0
-        );
-
-    box-shadow:
-        0 0 20px rgba(50, 186, 255, 0.75);
-}
-
-
-.login-page .cap-head {
-    position: absolute;
-
-    left: 50%;
-    top: 18px;
-
-    width: 46px;
-    height: 18px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #45bfff,
-            #0870c8
+    filter:
+        drop-shadow(
+            0 2px 5px rgba(0, 0, 0, 0.28)
+        )
+        drop-shadow(
+            0 0 8px rgba(255, 255, 255, 0.20)
         );
 }
 
 
-.login-page .cap-tassel {
-    position: absolute;
+/* SVM text */
 
-    left: 65%;
-    top: 15px;
+.login-page .svm-text {
+    position: relative;
+    z-index: 5;
 
-    width: 3px;
-    height: 25px;
+    font-size: 56px;
 
-    background: #72d6ff;
+    line-height: 0.9;
 
-    transform: rotate(20deg);
+    font-weight: 900;
 
-    border-radius: 4px;
-}
+    letter-spacing: -2px;
 
+    color: #ffffff;
 
-.login-page .cap-tassel::after {
-    content: "";
+    text-align: center;
 
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    left: -3px;
-    bottom: -3px;
-
-    border-radius: 50%;
-
-    background: #72d6ff;
+    text-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.25),
+        0 0 12px rgba(255, 255, 255, 0.25);
 }
 
 
@@ -359,7 +290,7 @@ body.login-page {
 
     text-align: center;
 
-    margin-top: 5px;
+    margin-top: 8px;
 
     font-size: 21px;
 
@@ -590,8 +521,6 @@ body.login-page {
 }
 
 
-/* Input icon */
-
 .login-page .input-icon {
     width: 58px;
     min-width: 58px;
@@ -619,8 +548,6 @@ body.login-page {
     stroke-linejoin: round;
 }
 
-
-/* Input */
 
 .login-page .input-box input {
     flex: 1;
